@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MechBattle:jar">
+    <output-path>$PROJECT_DIR$/out</output-path>
+    <root id="archive" name="MechBattle.jar">
+      <element id="module-output" name="MechBattle" />
+    </root>
+  </artifact>
+</component>
