@@ -3,28 +3,24 @@ package Robots;
 import Field.FieldOfBattle;
 import Interfaces.iFight;
 import Interfaces.iMove;
+import Workshop.Weapon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class Robot implements iFight, iMove {
 
     public static boolean victory = false;
-    public int coordinatX;
-    public int coordinatY;
+    public int coordinatX, coordinatY, maxWeigth, weaponWeight, guns, rockets, lasers;
     private String name;
-    private int mightOfGun;
-    private int rangeOfGunAttack;
-    private int meleemight;
-    private int numberOfMoves;
-    private int initiativa;
-    private int armor;
-    public boolean firstTurn = false;
-    // private int critChance;
-    private int radiator;
-    private int heatLev = 0;
+    private int mightOfGun, rangeOfGunAttack, meleemight, numberOfMoves, armor, initiativa, radiator, heatLev = 0;
+    public boolean firstTurn = false, rocketSocket, laserSocket, gunSocket;
+    public List<Weapon> weapons = new ArrayList<>();
+
 
     public Robot(String name, int mightOfGun, int rangeOfGunAttack, int meleemight, int numberOfMoves, int initiativa, int armor, int radiator) {
         this.name = name;

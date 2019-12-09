@@ -1,6 +1,7 @@
 package Interfaces;
 
 import Robots.Robot;
+import Workshop.Weapon;
 
 import java.io.IOException;
 

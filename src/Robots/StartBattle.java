@@ -1,5 +1,7 @@
 package Robots;
 
+import Workshop.GameWorkShop;
+
 import java.lang.Thread;
 import java.io.*;
 
@@ -34,6 +36,7 @@ public class StartBattle {
                 case ("1"):
                     bot1 = new Thor(6, 12);
                     System.out.println("Ты выбрал THOR");
+                    GameWorkShop.getWeapons(bot1);
                     break one;
                 case ("2"):
                     bot1 = new MadCat(6, 0);
@@ -63,6 +66,8 @@ public class StartBattle {
                 System.out.println("Второй игрок выберите меха");
 
         }
+
+
 
         while (true) {
             if ((bot1.getInitiativa() * (Math.random() * 10)) > (bot2.getInitiativa() * (Math.random() * 10))) {
