@@ -11,7 +11,7 @@ import java.io.*;
 В корпус - обычный урон;
 В ноги - сниженный урон, но понижает очки хода противника;
 В руки -  сниженный урон, но понижает урон противника;
-
+При стрельбе вы перегреваетесь, но перегрев снижаеся при движении или пропуске хода;
 
 * */
 public class StartBattle {
@@ -19,8 +19,8 @@ public class StartBattle {
     public static void main(String[] args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        Robots bot1;
-        Robots bot2;
+        Robot bot1;
+        Robot bot2;
 
         one:
         for (; ; ) {
@@ -42,8 +42,6 @@ public class StartBattle {
 
                 default:
                     System.out.println("Выберите меха");
-
-
             }
         }
         two:
@@ -79,24 +77,27 @@ public class StartBattle {
                 break;
             }
         }
-        while (!Robots.victory) {
+        while (!Robot.victory) {
 
-            if (bot1.firstTurn) {
+            if (bot1.firstTurn && !bot2.firstTurn) {
                 System.out.println();
-                System.out.println("Ход игрока 1");
-                Robots.turn(bot1, bot2);
-                Thread.sleep(1000);
-            } else {
-                System.out.println();
-                System.out.println("Ход игрока 2");
-                Robots.turn(bot2, bot1);
-                Thread.sleep(1000);
+                System.out.println("ХОД ИГРОКА 1");
+                Robot.turn(bot1, bot2);
+                Thread.sleep(500);
             }
-
+            else if(bot2.firstTurn && !bot1.firstTurn){
+                System.out.println();
+                System.out.println("ХОД ИГРОКА 2");
+                Robot.turn(bot2, bot1);
+                Thread.sleep(500);
+            }
         }
     }
 
-    public static void neverniVivod() {
+    public static void wrongInput() {
         System.out.println("Неверный ввод");
     }
+
+
 }
+
