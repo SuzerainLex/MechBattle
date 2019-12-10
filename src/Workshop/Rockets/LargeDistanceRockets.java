@@ -6,16 +6,18 @@ import Workshop.GameWorkShop;
 public class LargeDistanceRockets extends Rockets {
 
     public LargeDistanceRockets() {
-        super("LargeDistanceRockets", 5, 5, 8, 5);
+        super("LargeDistanceRockets", 5, 5, 8, 0, 4, 0 );
     }
     public void instanceLargeDistanceRockets(Robot bot) {
-        if (bot.maxWeigth >= bot.weaponWeight && bot.laserSocket && bot.lasers < 2) {
+        if (bot.maxWeigth >= bot.weaponWeight && bot.rockets < bot.rocketSockets) {
             System.out.println("Установлены ракеты большой дальности");
             bot.weapons.add(this);
+            bot.rockets++;
             bot.weaponWeight += this.weight;
             System.out.println("Вес вооружения " + bot.weaponWeight);
+            System.out.println("Установлено ракет " + bot.rockets);
         }
-        else   GameWorkShop.getWarning(bot, this);
+        else   GameWorkShop.getWarning(bot);
     }
 }
 

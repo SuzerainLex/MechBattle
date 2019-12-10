@@ -1,5 +1,8 @@
-package Robots;
+package Game;
 
+import Robots.MadCat;
+import Robots.Robot;
+import Robots.Thor;
 import Workshop.GameWorkShop;
 
 import java.lang.Thread;
@@ -18,12 +21,10 @@ import java.io.*;
 * */
 public class StartBattle {
 
-    public static void main(String[] args) throws Exception {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
+    public static void main(String[] args) throws IOException, InterruptedException {
         Robot bot1;
         Robot bot2;
-
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         one:
         for (; ; ) {
             System.out.println("Первый игрок выберите меха");
@@ -41,6 +42,7 @@ public class StartBattle {
                 case ("2"):
                     bot1 = new MadCat(6, 0);
                     System.out.println("Ты выбрал MAD CAT");
+                    GameWorkShop.getWeapons(bot1);
                     break one;
 
                 default:
@@ -57,52 +59,23 @@ public class StartBattle {
             if (input2.equals("1")) {
                 bot2 = new Thor(6, 12);
                 System.out.println("Ты выбрал THOR");
+                GameWorkShop.getWeapons(bot2);
                 break two;
             } else if (input2.equals("2")) {
                 bot2 = new MadCat(6, 0);
                 System.out.println("Ты выбрал MAD CAT");
+                GameWorkShop.getWeapons(bot2);
                 break two;
             } else
                 System.out.println("Второй игрок выберите меха");
-
         }
-
-
-
-        while (true) {
-            if ((bot1.getInitiativa() * (Math.random() * 10)) > (bot2.getInitiativa() * (Math.random() * 10))) {
-                bot1.firstTurn = true;
-                System.out.println("Первым ходит игрок 1");
-                break;
-            }
-
-            if ((bot2.getInitiativa() * (Math.random() * 10)) > (bot1.getInitiativa() * (Math.random() * 10))) {
-                System.out.println("Первым ходит игрок 2");
-                bot2.firstTurn = true;
-                break;
-            }
-        }
-        while (!Robot.victory) {
-
-            if (bot1.firstTurn && !bot2.firstTurn) {
-                System.out.println();
-                System.out.println("ХОД ИГРОКА 1");
-                Robot.turn(bot1, bot2);
-                Thread.sleep(500);
-            }
-            else if(bot2.firstTurn && !bot1.firstTurn){
-                System.out.println();
-                System.out.println("ХОД ИГРОКА 2");
-                Robot.turn(bot2, bot1);
-                Thread.sleep(500);
-            }
-        }
+       FirstTurn.calcFirstTurn(bot1, bot2);
+        Victory.gamePlay(bot1, bot2);
     }
 
     public static void wrongInput() {
         System.out.println("Неверный ввод");
     }
-
 
 }
 

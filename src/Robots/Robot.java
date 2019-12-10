@@ -1,6 +1,7 @@
 package Robots;
 
 import Field.FieldOfBattle;
+import Game.StartBattle;
 import Interfaces.iFight;
 import Interfaces.iMove;
 import Workshop.Weapon;
@@ -15,14 +16,14 @@ import java.util.List;
 public abstract class Robot implements iFight, iMove {
 
     public static boolean victory = false;
-    public int coordinatX, coordinatY, maxWeigth, weaponWeight, guns, rockets, lasers;
+    public int coordinatX, coordinatY, maxWeigth, weaponWeight, guns = 0, rockets = 0, lasers = 0, rocketSockets, laserSockets, gunSockets;
     private String name;
     private int mightOfGun, rangeOfGunAttack, meleemight, numberOfMoves, armor, initiativa, radiator, heatLev = 0;
-    public boolean firstTurn = false, rocketSocket, laserSocket, gunSocket;
+    public boolean firstTurn = false;
     public List<Weapon> weapons = new ArrayList<>();
 
 
-    public Robot(String name, int mightOfGun, int rangeOfGunAttack, int meleemight, int numberOfMoves, int initiativa, int armor, int radiator) {
+    public Robot(String name, int mightOfGun, int rangeOfGunAttack, int meleemight, int numberOfMoves, int initiativa, int armor, int radiator, int maxWeght, int gunSockets, int rocketSockets, int laserSockets) {
         this.name = name;
         this.mightOfGun = mightOfGun;
         this.rangeOfGunAttack = rangeOfGunAttack;
@@ -31,6 +32,10 @@ public abstract class Robot implements iFight, iMove {
         this.initiativa = initiativa;
         this.armor = armor;
         this.radiator = radiator;
+        this.maxWeigth = maxWeght;
+        this.laserSockets = laserSockets;
+        this.gunSockets = gunSockets;
+        this.rocketSockets = rocketSockets;
     }
 
 
@@ -66,7 +71,7 @@ public abstract class Robot implements iFight, iMove {
         int rand = (int) (Math.random() * 10);
         int number;
         if (this.heatLev <= this.radiator) {
-            if ((robot.coordinatX <= coordinatX + rangeOfGunAttack & robot.coordinatX >= coordinatX - rangeOfGunAttack) && (robot.coordinatY <= coordinatY + rangeOfGunAttack & robot.coordinatY >= coordinatY - rangeOfGunAttack)) {
+            if ((robot.coordinatX <= coordinatX + rangeOfGunAttack& robot.coordinatX >= coordinatX - rangeOfGunAttack) && (robot.coordinatY <= coordinatY + rangeOfGunAttack & robot.coordinatY >= coordinatY - rangeOfGunAttack)) {
                 Thread.sleep(200);
                 System.out.println("Введите число от 0 до 10: ");
                 while (input4 < 0 || input4 > 10) {
@@ -77,7 +82,6 @@ public abstract class Robot implements iFight, iMove {
                     }
 
                 }
-
                 if (rand == input4) {
                     System.out.println("Попадание в голову!");
                     robot.armor = robot.armor - mightOfGun * 3;
@@ -187,7 +191,7 @@ public abstract class Robot implements iFight, iMove {
         }
     }
 
-    static void turn(Robot bot1, Robot bot2) throws IOException, InterruptedException {
+    public static void turn(Robot bot1, Robot bot2) throws IOException, InterruptedException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             System.out.println("Местоположение " + bot1.name + " " + bot1.coordinatX + ":" + bot1.coordinatY);

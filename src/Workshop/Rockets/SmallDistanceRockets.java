@@ -5,15 +5,16 @@ import Workshop.GameWorkShop;
 
 public class SmallDistanceRockets extends Rockets {
     public SmallDistanceRockets() {
-        super("SmallDistanceRockets", 7, 7, 6, 5);
+        super("SmallDistanceRockets", 7, 5, 6, 0, 4,0);
     }
     public void instanceSmallDistanceRockets(Robot bot) {
-        if (bot.maxWeigth >= bot.weaponWeight && bot.laserSocket && bot.lasers < 2) {
+        if (bot.maxWeigth >= bot.weaponWeight && bot.rockets < bot.rocketSockets) {
             System.out.println("Установлены ракеты малой дальности");
+            bot.rockets++;
             bot.weapons.add(this);
             bot.weaponWeight += this.weight;
             System.out.println("Вес вооружения " + bot.weaponWeight);
         }
-        else   GameWorkShop.getWarning(bot, this);
+        else   GameWorkShop.getWarning(bot);
     }
 }
