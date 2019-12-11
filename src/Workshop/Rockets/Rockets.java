@@ -37,6 +37,7 @@ public abstract class Rockets extends Weapon {
             }
 
         }
+        bot.allRockets.clear();
         bot.rockets = 0;
         System.out.println("Все ракеты деинсталированы");
     }

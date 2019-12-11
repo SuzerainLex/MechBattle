@@ -32,24 +32,24 @@ public abstract class Gun extends Weapon {
         Iterator<Weapon> weaponIterator = bot.weapons.iterator();
         while (weaponIterator.hasNext()) {
             Weapon nextGun = weaponIterator.next();
-            Gun gun = (Gun) nextGun;
+            if (nextGun instanceof Gun) {
+                Gun gun = (Gun) nextGun;
 
-            if (gun.leftHand) {
-               Iterator<Weapon> leftWeaponIterator = bot.leftHandWeapon.iterator();
-                while (leftWeaponIterator.hasNext()) {
-                    Weapon nextLeftGun = leftWeaponIterator.next();
-                //    bot.leftHandSlots--;
-                    leftWeaponIterator.remove();
+                if (gun.leftHand) {
+                    Iterator<Weapon> leftWeaponIterator = bot.leftHandWeapon.iterator();
+                    while (leftWeaponIterator.hasNext()) {
+                        Weapon nextLeftGun = leftWeaponIterator.next();
+                        //    bot.leftHandSlots--;
+                        leftWeaponIterator.remove();
+                    }
+                } else if (gun.rightHand) {
+                    Iterator<Weapon> rightWeaponIterator = bot.rightHandWeapon.iterator();
+                    while (rightWeaponIterator.hasNext()) {
+                        //  bot.rightHandSlots--;
+                        Weapon nextLeftGun = rightWeaponIterator.next();
+                        rightWeaponIterator.remove();
+                    }
                 }
-            }
-            else if(gun.rightHand) {
-            Iterator<Weapon> rightWeaponIterator = bot.rightHandWeapon.iterator();
-                while (rightWeaponIterator.hasNext()) {
-                  //  bot.rightHandSlots--;
-                    Weapon nextLeftGun = rightWeaponIterator.next();
-                    rightWeaponIterator.remove();
-                }
-            }
 
                 if (gun instanceof MiniGun) {
                     bot.weaponWeight -= gun.weight;
@@ -63,68 +63,68 @@ public abstract class Gun extends Weapon {
                     weaponIterator.remove();
                 }
             }
+        }
         bot.guns = 0;
         System.out.println("Все пушки деинсталированы");
     }
 
     public static void handChoose(Robot bot, String weapon) throws IOException {
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)) ;
-            System.out.println("1. Правая рука");
-            System.out.println("2. Левая рука");
-            System.out.println("3. Назад");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("1. Правая рука");
+        System.out.println("2. Левая рука");
+        System.out.println("3. Назад");
 
-            while (true) {
-                String inputHand = reader.readLine();
-                switch (inputHand) {
-                    case ("1"):
-                      //  if(bot.maxRightHandSlots != bot.rightHandSlots) {
-                        if(bot.maxLeftHandSlots != bot.rightHandWeapon.size()){
-                          // bot.rightHandSlots++;
-                            if (weapon.equals("miniGun")) {
-                                MiniGun miniGR = new MiniGun(false, true);
-                                miniGR.instanceMiniGun(bot);
-                            } else if (weapon.equals("mediumGun")) {
-                                MediumGun mediumGunR = new MediumGun(false, true);
-                                mediumGunR.instanceMediumGun(bot);
-                            } else if (weapon.equals("BigGun")) {
-                                BigGun BigGunR = new BigGun(false, true);
-                                BigGunR.instanceBigGun(bot);
-                            }
-                            return;
-                        } else
-                            System.out.println("Правая рука занята");
-                        break;
+        while (true) {
+            String inputHand = reader.readLine();
+            switch (inputHand) {
+                case ("1"):
+                    //  if(bot.maxRightHandSlots != bot.rightHandSlots) {
+                    if (bot.maxLeftHandSlots != bot.rightHandWeapon.size()) {
+                        // bot.rightHandSlots++;
+                        if (weapon.equals("miniGun")) {
+                            MiniGun miniGR = new MiniGun(false, true);
+                            miniGR.instanceMiniGun(bot);
+                        } else if (weapon.equals("mediumGun")) {
+                            MediumGun mediumGunR = new MediumGun(false, true);
+                            mediumGunR.instanceMediumGun(bot);
+                        } else if (weapon.equals("BigGun")) {
+                            BigGun BigGunR = new BigGun(false, true);
+                            BigGunR.instanceBigGun(bot);
+                        }
+                        return;
+                    } else
+                        System.out.println("Правая рука занята");
+                    break;
 
-                    case ("2"):
+                case ("2"):
                        /* if(bot.maxLeftHandSlots != bot.leftHandSlots) {
                             bot.leftHandSlots++;*/
-                       if(bot.maxLeftHandSlots != bot.leftHandWeapon.size()){
-                            if (weapon.equals("miniGun")) {
-                                MiniGun miniGL = new MiniGun(true, false);
-                                miniGL.instanceMiniGun(bot);
-                            } else if (weapon.equals("mediumGun")) {
-                                MediumGun mediumGunL = new MediumGun(true, false);
-                                mediumGunL.instanceMediumGun(bot);
-                            } else if (weapon.equals("BigGun")) {
-                                BigGun BigGunL = new BigGun(true, false);
-                                BigGunL.instanceBigGun(bot);
-                            }
-                            return;
+                    if (bot.maxLeftHandSlots != bot.leftHandWeapon.size()) {
+                        if (weapon.equals("miniGun")) {
+                            MiniGun miniGL = new MiniGun(true, false);
+                            miniGL.instanceMiniGun(bot);
+                        } else if (weapon.equals("mediumGun")) {
+                            MediumGun mediumGunL = new MediumGun(true, false);
+                            mediumGunL.instanceMediumGun(bot);
+                        } else if (weapon.equals("BigGun")) {
+                            BigGun BigGunL = new BigGun(true, false);
+                            BigGunL.instanceBigGun(bot);
                         }
-                         else
-                            System.out.println("Левая рука занята");
-                         break;
-
-                    case ("3"):
                         return;
+                    } else
+                        System.out.println("Левая рука занята");
+                    break;
 
-                    default:
-                        StartBattle.wrongInput();
-                        break;
-                }
+                case ("3"):
+                    return;
 
-    }
+                default:
+                    StartBattle.wrongInput();
+                    break;
+            }
+
+        }
     }
 }
 

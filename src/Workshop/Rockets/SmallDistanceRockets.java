@@ -11,6 +11,7 @@ public class SmallDistanceRockets extends Rockets {
         if (bot.maxWeigth > bot.weaponWeight && bot.rockets < bot.rocketSockets) {
             System.out.println("Установлены ракеты малой дальности");
             bot.rockets++;
+            bot.allRockets.add(this);
             bot.weapons.add(this);
             bot.weaponWeight += this.weight;
         //    System.out.println("Вес вооружения " + bot.weaponWeight);

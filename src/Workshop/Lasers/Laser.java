@@ -32,38 +32,40 @@ public abstract class Laser extends Weapon {
         while (weaponIterator.hasNext()) {
 
             Weapon nextLaser = weaponIterator.next();
-            Laser laser = (Laser) nextLaser;
-            if (laser.leftHand) {
-                Iterator<Weapon> leftWeaponIterator = bot.leftHandWeapon.iterator();
-                while (leftWeaponIterator.hasNext()) {
-                    Weapon nextLeftLaser = leftWeaponIterator.next();
-                 //   bot.leftHandSlots--;
-                    leftWeaponIterator.remove();
+            if (nextLaser instanceof Laser) {
+                Laser laser = (Laser) nextLaser;
+                if (laser.leftHand) {
+                    Iterator<Weapon> leftWeaponIterator = bot.leftHandWeapon.iterator();
+                    while (leftWeaponIterator.hasNext()) {
+                        Weapon nextLeftLaser = leftWeaponIterator.next();
+                        //   bot.leftHandSlots--;
+                        leftWeaponIterator.remove();
+                    }
+                } else if (laser.rightHand) {
+                    Iterator<Weapon> rightWeaponIterator = bot.rightHandWeapon.iterator();
+                    while (rightWeaponIterator.hasNext()) {
+                        Weapon nextRightLaser = rightWeaponIterator.next();
+                        //     bot.rightHandSlots--;
+                        rightWeaponIterator.remove();
+                    }
                 }
-            } else if (laser.rightHand) {
-                Iterator<Weapon> rightWeaponIterator = bot.rightHandWeapon.iterator();
-                while (rightWeaponIterator.hasNext()) {
-                    Weapon nextRightLaser = rightWeaponIterator.next();
-               //     bot.rightHandSlots--;
-                    rightWeaponIterator.remove();
+
+                if (laser instanceof SmallLaser) {
+
+                    bot.weaponWeight -= laser.weight;
+                    weaponIterator.remove();
+                }
+                if (laser instanceof MediumLaser) {
+
+                    bot.weaponWeight -= laser.weight;
+                    weaponIterator.remove();
+                }
+                if (laser instanceof BigLaser) {
+                    bot.weaponWeight -= laser.weight;
+                    weaponIterator.remove();
                 }
             }
-
-            if (laser instanceof SmallLaser) {
-
-                bot.weaponWeight -= laser.weight;
-                weaponIterator.remove();
-            }
-            if (laser instanceof MediumLaser) {
-
-                bot.weaponWeight -= laser.weight;
-                weaponIterator.remove();
-            }
-            if (laser instanceof BigLaser) {
-                bot.weaponWeight -= laser.weight;
-                weaponIterator.remove();
-            }
-        }
+       }
         bot.lasers = 0;
         System.out.println("Все лазеры деинсталированы");
     }
@@ -78,9 +80,9 @@ public abstract class Laser extends Weapon {
             String inputHand = reader.readLine();
             switch (inputHand) {
                 case ("1"):
-                   // if (bot.maxRightHandSlots != bot.rightHandSlots) {
-                      //  bot.rightHandSlots++;
-                    if (bot.maxRightHandSlots != bot.rightHandWeapon.size()){
+                    // if (bot.maxRightHandSlots != bot.rightHandSlots) {
+                    //  bot.rightHandSlots++;
+                    if (bot.maxRightHandSlots != bot.rightHandWeapon.size()) {
                         if (weapon.equals("smalllaser")) {
                             SmallLaser sLR = new SmallLaser(false, true);
 
@@ -100,7 +102,7 @@ public abstract class Laser extends Weapon {
                 case ("2"):
                    /* if (bot.maxLeftHandSlots != bot.leftHandSlots) {
                         bot.leftHandSlots++;*/
-                   if(bot.maxLeftHandSlots != bot.leftHandWeapon.size()){
+                    if (bot.maxLeftHandSlots != bot.leftHandWeapon.size()) {
                         if (weapon.equals("smalllaser")) {
                             SmallLaser sLL = new SmallLaser(true, false);
                             sLL.instanceSmallLaser(bot);

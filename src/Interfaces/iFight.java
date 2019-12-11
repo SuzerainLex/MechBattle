@@ -95,6 +95,7 @@ public interface iFight {
 
     }
     static void distAttack1(Robot bot1, Robot bot2, Weapon weapon) throws IOException, InterruptedException {
+        System.out.println("АТАКА " + weapon.name);
    /*BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int input4 = -1 , number;
         int rand = (int) (Math.random() * 10);
