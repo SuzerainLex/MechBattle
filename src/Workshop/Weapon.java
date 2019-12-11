@@ -1,16 +1,20 @@
 package Workshop;
 
 import Robots.Robot;
+import Workshop.Guns.Gun;
+import Workshop.Lasers.Laser;
 
 public abstract class Weapon
 {
     public String name;
+    public final int cost;
     public int weight, damage, range, heat, ammunition, damageHeat;
 
 
 
-    public Weapon(String name, int weight, int damage, int range, int heat, int ammunition, int damageHeat) {
+    public Weapon(String name, int cost, int weight, int damage, int range, int heat, int ammunition, int damageHeat) {
         this.name = name;
+        this.cost = cost;
         this.weight = weight;
         this.damage = damage;
         this.range = range;
@@ -24,8 +28,22 @@ public abstract class Weapon
         System.out.println("Вес вооружения " + bot.weaponWeight);
         System.out.println("Установлены : ");
         for (Weapon w: bot.weapons) {
-            System.out.print(" | " + w.name+ " | ");
+            if (w instanceof Gun) {
+                if (((Gun) w).leftHand) {
+                    System.out.print(" | " + w.name + " в левую руку | ");
+                } else if (((Gun) w).rightHand) {
+                    System.out.print(" | " + w.name + " в правую руку | ");
+                }
+
+            }else if(w instanceof Laser){
+                if (((Laser) w).leftHand) {
+                    System.out.print(" | " + w.name + " в левую руку | ");
+                } else if (((Laser) w).rightHand) {
+                    System.out.print(" | " + w.name + " в правую руку | ");
+                }
+            } else System.out.print(" | " + w.name + " на корпус | ");
         }
+
         System.out.println();
         System.out.println("1. Пушки");
         System.out.println("2. Ракеты");
@@ -36,9 +54,13 @@ public abstract class Weapon
 
     public static void removeWeapon(Robot bot){
         bot.weapons.clear();
+        bot.rightHandWeapon.clear();
+        bot.leftHandWeapon.clear();
+        bot.guns = 0; bot.rockets = 0; bot.lasers = 0;
         bot.weaponWeight = 0;
         System.out.println("Все оружие деисталлировано");
   }
+
 }
 
 

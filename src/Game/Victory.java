@@ -12,14 +12,14 @@ public class Victory {
             if(bot1.numberOfMoves > 0) {
                 System.out.println();
                 System.out.println("ХОД ИГРОКА 1");
-                Robot.turn(bot1, bot2);
+                Turn.makeTurn(bot1, bot2);
             }
 
             //} else if (bot2.firstTurn && !bot1.firstTurn) {
             if(bot2.numberOfMoves > 0){
                 System.out.println();
                 System.out.println("ХОД ИГРОКА 2");
-                Robot.turn(bot2, bot1);
+                Turn.makeTurn(bot2, bot1);
             }
         }
     }

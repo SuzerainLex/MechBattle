@@ -4,18 +4,30 @@ import Robots.Robot;
 import Workshop.GameWorkShop;
 
 public class MiniGun extends Gun {
-        public MiniGun() {
-        super("MiniGun", 1, 3, 7, 10, 10, 0);
-        }
+    public MiniGun(boolean leftHand, boolean rightHand) {
+        super("MiniGun", 1, 3, 7, 10, 10, 0, 1);
+        this.rightHand = rightHand;
+        this.leftHand = leftHand;
+    }
+
     public void instanceMiniGun(Robot bot) {
-        if (bot.maxWeigth >= bot.weaponWeight && bot.guns < bot.gunSockets) {
+        if (bot.maxWeigth > bot.weaponWeight && bot.guns < bot.gunSockets) {
             System.out.println("Установлена маленькая пушка");
-            ++bot.guns;
+            bot.guns++;
             bot.weaponWeight += this.weight;
-            System.out.println("Вес вооружения " + bot.weaponWeight);
+
+            //    System.out.println("Вес вооружения " + bot.weaponWeight);
             System.out.println("Установлено пушек " + bot.guns);
-            bot.weapons.add(this);
+            if (this.leftHand){
+                bot.leftHandWeapon.add(this);
+            }
+                                   else {
+                bot.rightHandWeapon.add(this);
+            }
+                        bot.weapons.add(this);
+
         }
-        else   GameWorkShop.getWarning(bot);
+
+        else GameWorkShop.getWarning(bot);
     }
 }

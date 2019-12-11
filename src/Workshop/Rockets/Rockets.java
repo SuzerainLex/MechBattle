@@ -3,15 +3,16 @@ package Workshop.Rockets;
 import Robots.Robot;
 import Workshop.Weapon;
 
+import java.io.IOException;
 import java.util.Iterator;
 
-public class Rockets extends Weapon {
+public abstract class Rockets extends Weapon {
 
-    public Rockets(String name, int weight, int damage, int range, int heat, int ammunition, int damageHeat) {
-        super(name, weight, damage, range, heat, ammunition, damageHeat);
+    public Rockets(String name, int weight, int damage, int range, int heat, int ammunition, int damageHeat, int cost) {
+        super(name, cost, weight, damage, range, heat, ammunition, damageHeat);
     }
 
-    public static void getMessageRockets(Robot bot) {
+       public static void getMessageRockets(Robot bot) {
         System.out.println("Вес вооружения " + bot.weaponWeight);
         System.out.println("1. Ракеты малой дальности");
         System.out.println("2. Ракеты большой дальности");
@@ -36,7 +37,8 @@ public class Rockets extends Weapon {
             }
 
         }
-        bot.lasers = 0;
+        bot.rockets = 0;
         System.out.println("Все ракеты деинсталированы");
     }
+
 }

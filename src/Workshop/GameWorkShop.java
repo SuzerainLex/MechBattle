@@ -21,7 +21,8 @@ import java.io.InputStreamReader;
 public class GameWorkShop {
 
     public static void getWeapons(Robot bot) throws IOException {
-        boolean i = false, l = false, m = false;
+        boolean i , l , m;
+        String weapon;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)) ;
 
             while (true) {
@@ -39,18 +40,18 @@ public class GameWorkShop {
                                 switch (inputG) {
 
                                     case ("1"):
-                                        MiniGun miniG = new MiniGun();
-                                        miniG.instanceMiniGun(bot);
-                                        break;
+                                        weapon = "miniGun";
+                                        Gun.handChoose(bot, weapon);
+                                         break;
 
                                     case ("2"):
-                                        MediumGun mediumG = new MediumGun();
-                                        mediumG.instanceMediumGun(bot);
+                                        weapon = "mediumGun";
+                                        Gun.handChoose(bot, weapon);
                                         break;
 
                                     case ("3"):
-                                        BigGun bigG = new BigGun();
-                                        bigG.instanceBigGun(bot);
+                                        weapon = "BigGun";
+                                        Gun.handChoose(bot, weapon);
                                         break;
 
                                     case ("4"):
@@ -96,29 +97,27 @@ public class GameWorkShop {
                                         break;
                                 }
                             }
-
                             break;
                         //ЛАЗЕРЫ
                         case ("3"):
-
                             m = true;
                             while (m) {
                                 Laser.getMessageLasers(bot);
                                 String inputL = reader.readLine();
                                 switch (inputL) {
                                     case ("1"):
-                                        SmallLaser sLaser = new SmallLaser();
-                                        sLaser.instanceSmallLaser(bot);
+                                        weapon = "smalllaser";
+                                       Laser.handChoose(bot, weapon);
                                         break;
 
                                     case ("2"):
-                                        MediumLaser mLaser = new MediumLaser();
-                                        mLaser.instanceMediumlLaser(bot);
+                                        weapon = "mediumlaser";
+                                        Laser.handChoose(bot, weapon);
                                         break;
 
                                     case ("3"):
-                                        BigLaser bLaser = new BigLaser();
-                                        bLaser.instanceBiglLaser(bot);
+                                        weapon = "biglaser";
+                                        Laser.handChoose(bot, weapon);
                                         break;
                                     case ("4"):
                                         m = false;
@@ -131,12 +130,17 @@ public class GameWorkShop {
                                         StartBattle.wrongInput();
                                 }
                             }
-
                             break;
                         case ("4"):
                             Weapon.removeWeapon(bot);
                             break;
                         case ("5"):
+                            if(bot.weaponWeight > bot.maxWeigth){
+                                System.out.println("Вы не можете выйти на бой с перевесом");
+                                System.out.println("Установите другой набор вооружения");
+                                continue;
+                            }
+                            else
                             return;
                     }
                 } catch (IOException e) {
@@ -147,10 +151,13 @@ public class GameWorkShop {
     }
 
     public static void getWarning(Robot bot) {
-        if (bot.guns >= bot.gunSockets || bot.lasers >= bot.laserSockets || bot.rockets >= bot.rocketSockets) {
-            System.out.println("Превышен лимит установки данного типа оружия");
-        } else
+        if(bot.maxWeigth <= bot.weaponWeight) {
             System.out.println("Превышен допустимый для вооружения вес");
+            System.out.println("Вы не можете выйти на бой с перевесом");
+            System.out.println("Установите другой набор вооружения");
+        } else if (bot.guns >= bot.gunSockets || bot.lasers >= bot.laserSockets || bot.rockets >= bot.rocketSockets) {
+            System.out.println("Превышен лимит установки данного типа оружия");}
+
     }
 
 }

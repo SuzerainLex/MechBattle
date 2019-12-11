@@ -25,6 +25,8 @@ public class StartBattle {
     public static void main(String[] args) throws IOException, InterruptedException {
         Robot bot1;
         Robot bot2;
+        MadCat mc = new MadCat(6, 12);
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             one:
             for (; ;) {

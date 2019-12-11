@@ -4,19 +4,28 @@ import Robots.Robot;
 import Workshop.GameWorkShop;
 
 public class MediumLaser extends Laser {
-    public MediumLaser() {
-        super("MediumLaser", 4, 5, 6, 3, 99, 7 );
+    public MediumLaser(boolean leftHand, boolean rightHand) {
+        super("MediumLaser", 4, 5, 6, 3, 99, 7, 2);
+        this.rightHand = rightHand;
+        this.leftHand = leftHand;
     }
+
     public void instanceMediumlLaser(Robot bot) {
-        if (bot.maxWeigth >= bot.weaponWeight && bot.lasers < bot.laserSockets) {
+        if (bot.maxWeigth > bot.weaponWeight && bot.lasers < bot.laserSockets) {
             System.out.println("Установлен средний лазер");
-            ++bot.lasers;
+
             bot.weaponWeight += this.weight;
             System.out.println("Вес вооружения " + bot.weaponWeight);
             System.out.println("Установлено лазеров " + bot.lasers);
+            if (this.leftHand)
+                bot.leftHandWeapon.add(this);
+            else
+                bot.rightHandWeapon.add(this);
             bot.weapons.add(this);
+            bot.lasers++;
+            if (bot.weaponWeight > bot.maxWeigth)
+                GameWorkShop.getWarning(bot);
 
-        }
-        else   GameWorkShop.getWarning(bot);
+        } else GameWorkShop.getWarning(bot);
     }
 }
