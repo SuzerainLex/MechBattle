@@ -134,6 +134,7 @@ public class GameWorkShop {
                         case ("4"):
                             Weapon.removeWeapon(bot);
                             break;
+
                         case ("5"):
                             if(bot.weaponWeight > bot.maxWeigth){
                                 System.out.println("Вы не можете выйти на бой с перевесом");

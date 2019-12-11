@@ -27,7 +27,7 @@ public class Turn {
                     Thread.sleep(500);
                     iMove.go1(bot1, bot2);
                     break;
-                    //СТРЕЛЬБА
+                //СТРЕЛЬБА
                 case ("2"):
                     Thread.sleep(500);
                     System.out.println("Выберите оружие для стрельбы");
@@ -49,7 +49,7 @@ public class Turn {
                             }
                         } else System.out.print(" | " + w.name + " на корпусe | ");
                     }*/
-                    while (true) {
+                    while (bot1.numberOfMoves > 0) {
                         System.out.println("1. Левая рука");
                         System.out.println("2. Правая рука");
                         System.out.println("3. Ракеты");
@@ -62,7 +62,7 @@ public class Turn {
                             case ("1"):
                                 for (Weapon lW : bot1.leftHandWeapon) {
                                     System.out.println("Выберите оружее");
-                                    System.out.println(i++  + " " + lW.name);
+                                    System.out.println(i++ + " " + lW.name);
                                 }
                                 i = 1;
                                 while (true) {
@@ -71,21 +71,24 @@ public class Turn {
                                     switch (input6) {
                                         case ("1"):
                                             System.out.println(bot1.leftHandWeapon.get(0).name);
-                                            iFight.distAttack1(bot1, bot2, bot1.leftHandWeapon.get(0) );
+                                            iFight.distAttack1(bot1, bot2, bot1.leftHandWeapon.get(0));
                                             break;
                                         case ("2"):
-                                            System.out.println(bot2.leftHandWeapon.get(1).name);
-                                            iFight.distAttack1(bot1, bot2, bot1.leftHandWeapon.get(1) );
-                                            break;
+                                            if (bot1.leftHandWeapon.size() > 1) {
+                                                System.out.println(bot2.leftHandWeapon.get(1).name);
+                                                iFight.distAttack1(bot1, bot2, bot1.leftHandWeapon.get(1));
+                                                break;
+                                            } else break;
+
                                     }
                                     break;
                                 }
                                 break;
-                             //ПРАВАЯ РУКА
+                            //ПРАВАЯ РУКА
                             case ("2"):
                                 for (Weapon rW : bot1.rightHandWeapon) {
                                     System.out.println("Выберите оружее");
-                                    System.out.println(i++  + " " + rW.name);
+                                    System.out.println(i++ + " " + rW.name);
                                 }
 
                                 while (true) {
@@ -94,65 +97,60 @@ public class Turn {
                                     switch (input7) {
                                         case ("1"):
                                             System.out.println(bot1.rightHandWeapon.get(0).name);
-                                            iFight.distAttack1(bot1, bot2, bot1.rightHandWeapon.get(0) );
+                                            iFight.distAttack1(bot1, bot2, bot1.rightHandWeapon.get(0));
                                             break;
                                         case ("2"):
-                                            System.out.println(bot2.rightHandWeapon.get(1).name);
-                                            iFight.distAttack1(bot1, bot2, bot1.rightHandWeapon.get(1) );
-                                            break;
+                                            if (bot1.rightHandWeapon.size() > 1) {
+                                                System.out.println(bot2.rightHandWeapon.get(1).name);
+                                                iFight.distAttack1(bot1, bot2, bot1.rightHandWeapon.get(1));
+                                                break;
+                                            } else break;
+
                                     }
                                     break;
                                 }
                                 break;
 
 
-
                             //КОРПУС
                             case ("3"):
+                                for (Weapon rocket : bot1.allRockets) {
+                                    System.out.println("Выберите оружее");
+                                    System.out.println(i++ + " " + rocket.name);
+                                }
+                                i = 1;
+                                while (true) {
+                                    String input8 = reader.readLine();
 
-                                /*for (Weapon lW : bot1.leftHandWeapon) {
-                                    if (lW instanceof Rockets) {
-                                        rockets.add(lW);
-                                    }
-                                }*/
-                                    for (Weapon rocket: bot1.allRockets){
-                                        System.out.println("Выберите оружее");
-                                        System.out.println(i++  + " " + rocket.name);
-                                    }
-                                    i = 1;
-                                    while (true) {
-                                        String input8 = reader.readLine();
+                                    switch (input8) {
+                                        case ("1"):
+                                            System.out.println(bot1.allRockets.get(0).name);
+                                            iFight.distAttack1(bot1, bot2, bot1.allRockets.get(0));
+                                            break;
+                                        case ("2"):
+                                            if (bot1.allRockets.size() > 1) {
 
-                                        switch (input8) {
-                                            case ("1"):
                                                 System.out.println(bot1.allRockets.get(0).name);
-                                                iFight.distAttack1(bot1, bot2, bot1.allRockets.get(0));
+                                                iFight.distAttack1(bot1, bot2, bot1.allRockets.get(1));
                                                 break;
-                                            case ("2"):
-                                                System.out.println(bot1.allRockets.get(0).name);
-                                                iFight.distAttack1(bot1, bot2,bot1.allRockets.get(1) );
-                                                break;
-                                        }
-                                        break;
+                                            } else break;
                                     }
                                     break;
+                                }
+                                break;
 
 
                             //НАЗАД
                             case ("4"):
-                                return;
+                                break;
 
 
                         }
-//break;
+                        break;
+
                     }
-
-
-                    // перернести в аттак   System.out.println("Дальность орудия Меха " + bot1.rangeOfGunAttack);
-
-                    //  iFight.distAttack(bot1, bot2);
-                    //break;
-
+                    break;
+                    //ПРОПУСК ХОДА
                 case ("3"):
                     Thread.sleep(500);
                     System.out.println("Пропуск хода");

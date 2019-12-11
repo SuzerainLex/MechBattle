@@ -4,10 +4,10 @@ import Robots.MadCat;
 import Robots.Robot;
 import Robots.Thor;
 import Workshop.GameWorkShop;
+import music.PlayMusic;
 
-import java.awt.event.KeyEvent;
-import java.lang.Thread;
 import java.io.*;
+
 
 /*
 Выберите мехов;
@@ -22,10 +22,12 @@ import java.io.*;
 * */
 public class StartBattle {
 
+
     public static void main(String[] args) throws IOException, InterruptedException {
         Robot bot1;
         Robot bot2;
-        MadCat mc = new MadCat(6, 12);
+        PlayMusic pM = new PlayMusic();
+        pM.start();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             one:
@@ -76,8 +78,6 @@ public class StartBattle {
             Victory.gamePlay(bot1, bot2);
 reader.close();
     }
-
-
 
     public static void wrongInput() {
         System.out.println("Неверный ввод");
