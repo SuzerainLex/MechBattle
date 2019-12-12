@@ -5,7 +5,7 @@ import Workshop.GameWorkShop;
 
 public class MiniGun extends Gun {
     public MiniGun(boolean leftHand, boolean rightHand) {
-        super("MiniGun", 1, 3, 7, 10, 10, 0, 1);
+        super("MiniGun", 1, 4, 7, 5, 10, 0, 1);
         this.rightHand = rightHand;
         this.leftHand = leftHand;
     }

@@ -18,10 +18,8 @@ import java.io.*;
 В ноги - сниженный урон, но понижает очки хода противника;
 В руки -  сниженный урон, но понижает урон противника;
 При стрельбе вы перегреваетесь, но перегрев снижаеся при движении или пропуске хода;
-
 * */
 public class StartBattle {
-
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Robot bot1;
@@ -84,4 +82,3 @@ reader.close();
     }
 
 }
-

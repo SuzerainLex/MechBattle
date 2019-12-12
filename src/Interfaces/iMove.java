@@ -10,9 +10,10 @@ import java.io.InputStreamReader;
 public interface iMove {
 
     static void go1(Robot bot1, Robot bot2) throws IOException {
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             while (bot1.numberOfMoves > 0) {
-                goMessage(bot1);
+                goMessage(bot1, bot2);
                 String input = reader.readLine();
                 if (input.equals("w") && bot1.coordinatY < FieldOfBattle.SIDEY) {
                     System.out.println("вперед");
@@ -42,18 +43,15 @@ public interface iMove {
                 }
             }
 
-        goMessage(bot1);
-        if (bot1.heatLev > 0) {
-            bot1.heatLev -= 10;
-        }
-        System.out.println("Очки ходов закончились");
-        bot2.numberOfMoves = bot2.maxNumberOfMoves;
+        goMessage(bot1, bot2);
 
     }
 
-    static void goMessage(Robot bot1) {
-        System.out.println("W ВПЕРЕД   S НАЗАД    A ВЛЕВО     D ВПРАВО");
+    static void goMessage(Robot bot1, Robot bot2) {
+        System.out.println("W ВПЕРЕД   S НАЗАД    A ВЛЕВО     D ВПРАВО    1. НАЗАД"  );
         System.out.println("Местонахождение " + bot1.coordinatX + ":" + bot1.coordinatY);
+        System.out.println("Местоположение противника " + bot2.coordinatX + ":" + bot2.coordinatY);
+        System.out.println("Очки хода " + bot1.numberOfMoves);
     }
 
 }

@@ -19,11 +19,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class GameWorkShop {
-
+  static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)) ;
     public static void getWeapons(Robot bot) throws IOException {
         boolean i , l , m;
         String weapon;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)) ;
+
 
             while (true) {
                 Weapon.getMessageWeapons(bot);

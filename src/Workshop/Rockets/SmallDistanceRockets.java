@@ -5,7 +5,7 @@ import Workshop.GameWorkShop;
 
 public class SmallDistanceRockets extends Rockets {
     public SmallDistanceRockets() {
-        super("SmallDistanceRockets", 7, 5, 6, 0, 4,0, 2);
+        super("SmallDistanceRockets", 5, 7, 6, 1, 4,0, 2);
     }
     public void instanceSmallDistanceRockets(Robot bot) {
         if (bot.maxWeigth > bot.weaponWeight && bot.rockets < bot.rocketSockets) {

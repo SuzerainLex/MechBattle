@@ -20,9 +20,9 @@ public abstract class Laser extends Weapon {
 
     public static void getMessageLasers(Robot bot) {
         System.out.println("Вес вооружения " + bot.weaponWeight);
-        System.out.println("1. Малый лазер");
-        System.out.println("2. Средний лазер");
-        System.out.println("3. Большой лазер");
+        System.out.println("1. Малый лазер   | Урон: 3 | Дальность: 5 | Боезапас: 99  | Очки хода: 1  | Перегрев: 3 | Вес: 1 | Тепловой урон: 5 | ");
+        System.out.println("2. Средний лазер | Урон: 6 | Дальность: 5 | Боезапас: 99  | Очки хода: 2  | Перегрев: 6 | Вес: 3 | Тепловой урон: 7 | ");
+        System.out.println("3. Большой лазер | Урон:10 | Дальность: 4 | Боезапас: 99  | Очки хода: 3  | Перегрев: 8 | Вес: 6 | Тепловой урон:10 | ");
         System.out.println("4. Назад");
         System.out.println("5. Убрать все лазеры");
     }

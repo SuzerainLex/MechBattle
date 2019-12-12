@@ -19,9 +19,9 @@ public abstract class Gun extends Weapon {
 
     public static void getMessageGuns(Robot bot) {
         System.out.println("Вес вооружения " + bot.weaponWeight);
-        System.out.println("1. Маленькая пушка");
-        System.out.println("2. Средняя пушка");
-        System.out.println("3. Большая пушка");
+        System.out.println("1. Маленькая пушка | Урон: 4 | Дальность: 7 | Боезапас: 10  | Очки хода: 1  | Перегрев: 5 | Вес: 1 |");
+        System.out.println("2. Средняя пушка  | Урон: 7 | Дальность: 5 | Боезапас: 6  | Очки хода: 2  | Перегрев: 6 | Вес: 3 |");
+        System.out.println("3. Большая пушка  | Урон: 12 | Дальность: 3 | Боезапас: 4 | Очки хода: 3  | Перегрев: 8 | Вес: 6 |");
         System.out.println("4. Назад");
         System.out.println("5. Убрать все пушки");
 

@@ -10,10 +10,10 @@ import java.util.List;
 
 public class Robot implements iFight, iMove {
 
-    public static boolean victory = false;
     public final int maxWeigth, armor;
     public int headArmor, bodyArmor, handsArmor, legsArmor;
-    public int coordinatX, coordinatY, weaponWeight, guns = 0, rockets = 0, lasers = 0, rocketSockets, laserSockets, gunSockets, maxNumberOfMoves, rangeOfGunAttack, mightOfGun, numberOfMoves, meleemight, initiativa, radiator, heatLev = 0, maxLeftHandSlots, maxRightHandSlots, leftHandSlots = 0, rightHandSlots = 0;
+    private  int heatLev = 0;
+    public int coordinatX, coordinatY, weaponWeight, guns = 0, rockets = 0, lasers = 0, rocketSockets, laserSockets, gunSockets, maxNumberOfMoves, rangeOfGunAttack, mightOfGun, numberOfMoves, meleemight, initiativa, radiator, maxLeftHandSlots, maxRightHandSlots,  leftHandArmor, rightHandArmor;
     public String name;
     public boolean firstTurn = false;
     public List<Weapon> weapons = new ArrayList<>();
@@ -25,7 +25,7 @@ public class Robot implements iFight, iMove {
         this.name = name;
         this.mightOfGun = mightOfGun;
         this.rangeOfGunAttack = rangeOfGunAttack;
-        this.meleemight = meleemight;
+        this.meleemight = meleemight; //ЕЩЕ НЕ СДЕЛАЛ!
         this.maxNumberOfMoves = maxNumberOfMoves;
         this.numberOfMoves = maxNumberOfMoves;
         this.initiativa = initiativa;
@@ -37,10 +37,12 @@ public class Robot implements iFight, iMove {
         this.rocketSockets = rocketSockets;
         this.maxLeftHandSlots = maxLeftHandSlots;
         this.maxRightHandSlots = maxRightHandSlots;
-        this.headArmor = armor / 4;
+        this.headArmor = armor / 5;
         this.bodyArmor = armor / 2;
         this.handsArmor = armor / 4;
         this.legsArmor = armor / 3;
+        this.leftHandArmor = armor/4;
+        this.rightHandArmor = armor/4;
     }
 
     public void setMightOfGun(int mightOfGun) {
@@ -53,10 +55,26 @@ public class Robot implements iFight, iMove {
         else return mightOfGun;
     }
 
+    public int getHeatLev() {
+        if(heatLev <=0)
+            return 0;
+       else return heatLev;
+    }
+
+    public void setHeatLev(int heatLev) {
+        this.heatLev = heatLev;
+    }
+
     public int getInitiativa() {
         return initiativa;
     }
 
+    public int getLegsArmor() {
+        return legsArmor;
+    }
 
+    public void setLegsArmor(int legsArmor) {
+        this.legsArmor = legsArmor;
+    }
 }
 

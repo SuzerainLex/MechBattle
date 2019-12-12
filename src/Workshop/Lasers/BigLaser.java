@@ -5,7 +5,7 @@ import Workshop.GameWorkShop;
 
 public class BigLaser extends Laser {
     public BigLaser(boolean leftHand, boolean rightHand) {
-        super("BigLaser", 7, 8, 5, 8, 99, 10, 3);
+        super("BigLaser", 6, 10, 4, 8, 99, 10, 3);
         this.rightHand = rightHand;
         this.leftHand = leftHand;
     }
