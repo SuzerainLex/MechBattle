@@ -38,7 +38,7 @@ public class StartBattle {
                 switch (input1) {
 
                     case ("1"):
-                        bot1 = new Thor(6, 12);
+                        bot1 = new Thor(6, 0);
                         System.out.println("Ты выбрал THOR");
                         GameWorkShop.getWeapons(bot1);
                         break one;
@@ -65,7 +65,7 @@ public class StartBattle {
                     GameWorkShop.getWeapons(bot2);
                     break two;
                 } else if (input2.equals("2")) {
-                    bot2 = new MadCat(6, 0);
+                    bot2 = new MadCat(6, 12);
                     System.out.println("Ты выбрал MAD CAT");
                     GameWorkShop.getWeapons(bot2);
                     break two;

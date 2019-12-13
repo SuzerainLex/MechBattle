@@ -30,16 +30,16 @@ public abstract class Weapon
         for (Weapon w: bot.weapons) {
             if (w instanceof Gun) {
                 if (((Gun) w).leftHand) {
-                    System.out.print(" | " + w.name + " в левую руке | ");
+                    System.out.print(" | " + w.name + " в левой руке | ");
                 } else if (((Gun) w).rightHand) {
-                    System.out.print(" | " + w.name + " в правую руке | ");
+                    System.out.print(" | " + w.name + " в правой руке | ");
                 }
 
             }else if(w instanceof Laser){
                 if (((Laser) w).leftHand) {
-                    System.out.print(" | " + w.name + " в левую руке | ");
+                    System.out.print(" | " + w.name + " в левой руке | ");
                 } else if (((Laser) w).rightHand) {
-                    System.out.print(" | " + w.name + " в правую руке | ");
+                    System.out.print(" | " + w.name + " в правой руке | ");
                 }
             } else System.out.print(" | " + w.name + " на корпусе | ");
         }

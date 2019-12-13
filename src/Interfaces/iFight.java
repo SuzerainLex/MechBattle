@@ -3,6 +3,7 @@ package Interfaces;
 import Game.StartBattle;
 import Game.Victory;
 import Robots.Robot;
+import Workshop.Guns.Gun;
 import Workshop.Lasers.Laser;
 import Workshop.Weapon;
 import org.w3c.dom.ls.LSOutput;
@@ -10,6 +11,7 @@ import org.w3c.dom.ls.LSOutput;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Iterator;
 
 public interface iFight {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -19,7 +21,7 @@ public interface iFight {
             Thread.sleep(200);
             System.out.println(bot1.name + " нанес " + weapon.name + " очков урона " + weapon.damage + " " + bot2.name);
             Thread.sleep(200);
-            System.out.println("У противника" + " осталось брони " + "голова:" + bot2.headArmor + " тело:" + bot2.bodyArmor + " руки:" + bot2.handsArmor + " ноги:" + bot2.legsArmor);
+            System.out.println("У противника осталось брони " + "голова:" + bot2.headArmor + " тело:" + bot2.bodyArmor + " левая рука:" + bot2.leftHandArmor + "правая рука:" + bot2.rightHandArmor + " ноги:" + bot2.legsArmor);
             Thread.sleep(200);
             if (weapon instanceof Laser)
                 System.out.println("Противнику нанесен тепловой урон " + weapon.damageHeat);
@@ -64,9 +66,9 @@ public interface iFight {
                             bot1.setHeatLev(bot1.getHeatLev() + weapon.heat);
 
                             getDistAttackMessage(bot1, bot2, weapon);
-                        } else if ((rand - 2) == input4) {
+                        } else if ((rand + 1) == input4 && bot2.legsArmor>0) {
                             weapon.ammunition--;
-                            System.out.println("Попадание в ногу!");
+                            System.out.println("Попадание в ноги!");
                             bot1.numberOfMoves -= weapon.cost;
                             bot2.legsArmor -= weapon.damage;
                             bot2.setHeatLev(bot2.getHeatLev() + weapon.damageHeat);
@@ -76,40 +78,62 @@ public interface iFight {
                             }
 
                             getDistAttackMessage(bot1, bot2, weapon);
-                        } else if ((rand + 2) == input4) {
+
+                        } else if ((rand + 2) == input4 && bot2.leftHandArmor>0) {
                             weapon.ammunition--;
-                            System.out.println("Попадание в руку!");
+                            System.out.println("Попадание в левую руку!");
                             bot1.numberOfMoves -= weapon.cost;
-                            bot2.handsArmor -= weapon.damage;
+                            bot2.leftHandArmor -= weapon.damage;
                             bot2.setHeatLev(bot2.getHeatLev() + weapon.damageHeat);
                             bot1.setHeatLev(bot1.getHeatLev() + weapon.heat);
-                            if (bot2.handsArmor <= 0) {
-                                System.out.println("Руки противника уничтожены");
+                            if (bot2.leftHandArmor <= 0) {
+                                System.out.println("Левая рука противника уничтожена");
+                                Iterator<Weapon> leftWeaponIterator = bot2.leftHandWeapon.iterator();
+                                while (leftWeaponIterator.hasNext()) {
+                                    Weapon nextLeftGun = leftWeaponIterator.next();
+                                     leftWeaponIterator.remove();
+                                }
                             }
-
                             getDistAttackMessage(bot1, bot2, weapon);
-                        } else {
-                            Thread.sleep(200);
-                            System.out.println("Промазал!!!");
+                        } else if ((rand - 2) == input4 && bot2.rightHandArmor > 0) {
                             weapon.ammunition--;
+                            System.out.println("Попадание в правую руку!");
                             bot1.numberOfMoves -= weapon.cost;
+                            bot2.rightHandArmor -= weapon.damage;
+                            bot2.setHeatLev(bot2.getHeatLev() + weapon.damageHeat);
                             bot1.setHeatLev(bot1.getHeatLev() + weapon.heat);
-                            Thread.sleep(200);
+                            if (bot2.rightHandArmor <= 0) {
+                                System.out.println("Правая рука противника уничтожена");
+                                Iterator<Weapon> rightWeaponIterator = bot2.rightHandWeapon.iterator();
+                                while (rightWeaponIterator.hasNext()) {
+                                    Weapon nextLeftGun = rightWeaponIterator.next();
+                                    rightWeaponIterator.remove();
+                                }
+                                                         }
+                            getDistAttackMessage(bot1, bot2, weapon);
 
-                        }
-                        if (bot2.headArmor <= 0 || bot2.bodyArmor <= 0) {
-                            Thread.sleep(500);
-                            System.out.println("Враг уничожен!");
-                            Thread.sleep(500);
-                            System.out.println(bot1.name + " победил!!!");
-                            //ЭТО НЕ РАБОТАЕТ((
-                            bot1.numberOfMoves = 0;
-                            bot2.numberOfMoves = 0;
+                            } else {
+                                Thread.sleep(200);
+                                System.out.println("Промазал!!!");
+                                weapon.ammunition--;
+                                bot1.numberOfMoves -= weapon.cost;
+                                bot1.setHeatLev(bot1.getHeatLev() + weapon.heat);
+                                Thread.sleep(200);
 
-                        }
-                    } else System.out.println("Не достаю до цели");
-                } else System.out.println("Мех перегрелся, невозможно стрелять");
-            } else System.out.println("Не хватает очков действий");
-        } else System.out.println("Нет боеприпасов!");
+                            }
+                            if (bot2.headArmor <= 0 || bot2.bodyArmor <= 0) {
+                                Thread.sleep(500);
+                                System.out.println("Враг уничожен!");
+                                Thread.sleep(500);
+                                System.out.println(bot1.name + " победил!!!");
+                                Victory.victory = true;
+                              /*  bot1.numberOfMoves = 0;
+                                bot2.numberOfMoves = 0;*/
+
+                            }
+                        } else System.out.println("Не достаю до цели");
+                    } else System.out.println("Мех перегрелся, невозможно стрелять");
+                } else System.out.println("Не хватает очков действий");
+            } else System.out.println("Нет боеприпасов!");
+        }
     }
-}

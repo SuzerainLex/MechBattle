@@ -39,7 +39,7 @@ public class Robot implements iFight, iMove {
         this.maxRightHandSlots = maxRightHandSlots;
         this.headArmor = armor / 5;
         this.bodyArmor = armor / 2;
-        this.handsArmor = armor / 4;
+        //this.handsArmor = armor / 4;
         this.legsArmor = armor / 3;
         this.leftHandArmor = armor/4;
         this.rightHandArmor = armor/4;
