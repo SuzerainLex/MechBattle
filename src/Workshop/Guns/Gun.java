@@ -1,6 +1,7 @@
 package Workshop.Guns;
 
 import Game.StartBattle;
+import Messages.Message;
 import Robots.Robot;
 import Workshop.Weapon;
 
@@ -18,17 +19,15 @@ public abstract class Gun extends Weapon {
     }
 
     public static void getMessageGuns(Robot bot) {
-        System.out.println("Вес вооружения " + bot.weaponWeight);
-        System.out.println("1. Маленькая пушка | Урон: 4 | Дальность: 7 | Боезапас: 10  | Очки хода: 1  | Перегрев: 5 | Вес: 1 |");
-        System.out.println("2. Средняя пушка  | Урон: 7 | Дальность: 5 | Боезапас: 6  | Очки хода: 2  | Перегрев: 6 | Вес: 3 |");
-        System.out.println("3. Большая пушка  | Урон: 12 | Дальность: 3 | Боезапас: 4 | Очки хода: 3  | Перегрев: 8 | Вес: 6 |");
+        System.out.println("Вес вооружения " + bot.getWeaponWeight());
+        System.out.println("1. Маленькая пушка | Урон: 4  | Дальность: 7 | Боезапас: 10 | Очки хода: 1  | Перегрев: 5 | Вес: 1 |");
+        System.out.println("2. Средняя пушка   | Урон: 7  | Дальность: 5 | Боезапас: 6  | Очки хода: 2  | Перегрев: 6 | Вес: 3 |");
+        System.out.println("3. Большая пушка   | Урон: 12 | Дальность: 3 | Боезапас: 4  | Очки хода: 3  | Перегрев: 8 | Вес: 6 |");
         System.out.println("4. Назад");
         System.out.println("5. Убрать все пушки");
-
     }
 
     public static void removeGuns(Robot bot) {
-
         Iterator<Weapon> weaponIterator = bot.weapons.iterator();
         while (weaponIterator.hasNext()) {
             Weapon nextGun = weaponIterator.next();
@@ -39,27 +38,23 @@ public abstract class Gun extends Weapon {
                     Iterator<Weapon> leftWeaponIterator = bot.leftHandWeapon.iterator();
                     while (leftWeaponIterator.hasNext()) {
                         Weapon nextLeftGun = leftWeaponIterator.next();
-                        //    bot.leftHandSlots--;
                         leftWeaponIterator.remove();
                     }
                 } else if (gun.rightHand) {
                     Iterator<Weapon> rightWeaponIterator = bot.rightHandWeapon.iterator();
                     while (rightWeaponIterator.hasNext()) {
-                        //  bot.rightHandSlots--;
                         Weapon nextLeftGun = rightWeaponIterator.next();
                         rightWeaponIterator.remove();
                     }
                 }
-
                 if (gun instanceof MiniGun) {
-                    bot.weaponWeight -= gun.weight;
+                    bot.setWeaponWeight(bot.getWeaponWeight() - gun.weight);
                     weaponIterator.remove();
                 } else if (gun instanceof MediumGun) {
-                    bot.weaponWeight -= gun.weight;
+                    bot.setWeaponWeight(bot.getWeaponWeight() - gun.weight);
                     weaponIterator.remove();
                 } else if (gun instanceof BigGun) {
-
-                    bot.weaponWeight -= gun.weight;
+                    bot.setWeaponWeight(bot.getWeaponWeight() - gun.weight);
                     weaponIterator.remove();
                 }
             }
@@ -79,9 +74,7 @@ public abstract class Gun extends Weapon {
             String inputHand = reader.readLine();
             switch (inputHand) {
                 case ("1"):
-                    //  if(bot.maxRightHandSlots != bot.rightHandSlots) {
                     if (bot.maxLeftHandSlots != bot.rightHandWeapon.size()) {
-                        // bot.rightHandSlots++;
                         if (weapon.equals("miniGun")) {
                             MiniGun miniGR = new MiniGun(false, true);
                             miniGR.instanceMiniGun(bot);
@@ -98,8 +91,6 @@ public abstract class Gun extends Weapon {
                     break;
 
                 case ("2"):
-                       /* if(bot.maxLeftHandSlots != bot.leftHandSlots) {
-                            bot.leftHandSlots++;*/
                     if (bot.maxLeftHandSlots != bot.leftHandWeapon.size()) {
                         if (weapon.equals("miniGun")) {
                             MiniGun miniGL = new MiniGun(true, false);
@@ -120,7 +111,7 @@ public abstract class Gun extends Weapon {
                     return;
 
                 default:
-                    StartBattle.wrongInput();
+                    Message.wrongInput();
                     break;
             }
 

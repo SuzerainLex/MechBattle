@@ -1,5 +1,6 @@
 package Workshop.Rockets;
 
+import Messages.Message;
 import Robots.Robot;
 import Workshop.GameWorkShop;
 
@@ -9,19 +10,18 @@ public class LargeDistanceRockets extends Rockets {
         super("LargeDistanceRockets", 5, 5, 8, 1, 4, 0,2 );
     }
     public void instanceLargeDistanceRockets(Robot bot) {
-        if (bot.maxWeigth > bot.weaponWeight && bot.rockets < bot.rocketSockets) {
+        if (bot.getMaxWeigth() > bot.getWeaponWeight() && bot.rockets < bot.rocketSockets) {
             System.out.println("Установлены ракеты большой дальности");
             bot.weapons.add(this);
             bot.allRockets.add(this);
             bot.rockets++;
-            bot.weaponWeight += this.weight;
-            //System.out.println("Вес вооружения " + bot.weaponWeight);
+            bot.setWeaponWeight(bot.getWeaponWeight() + this.weight);
             System.out.println("Установлено ракет " + bot.rockets);
-            if(bot.weaponWeight > bot.maxWeigth)
-                GameWorkShop.getWarning(bot);
+            //ПОСТ ПРОВЕРКА
+            if (bot.getWeaponWeight() > bot.getMaxWeigth())
+                Message.getWarning(bot);
         }
-       // else System.out.println("Превышен лимит установки данного типа оружия");
-        else  GameWorkShop.getWarning(bot);
+             else  Message.getWarning(bot);
     }
 }
 

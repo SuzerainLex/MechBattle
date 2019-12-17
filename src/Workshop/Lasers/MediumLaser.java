@@ -1,5 +1,6 @@
 package Workshop.Lasers;
 
+import Messages.Message;
 import Robots.Robot;
 import Workshop.GameWorkShop;
 
@@ -11,11 +12,10 @@ public class MediumLaser extends Laser {
     }
 
     public void instanceMediumlLaser(Robot bot) {
-        if (bot.maxWeigth > bot.weaponWeight && bot.lasers < bot.laserSockets) {
+        if (bot.getMaxWeigth() > bot.getWeaponWeight() && bot.lasers < bot.laserSockets) {
             System.out.println("Установлен средний лазер");
-
-            bot.weaponWeight += this.weight;
-            System.out.println("Вес вооружения " + bot.weaponWeight);
+            bot.setWeaponWeight(bot.getWeaponWeight() + this.weight);
+            System.out.println("Вес вооружения " + bot.getWeaponWeight());
             System.out.println("Установлено лазеров " + bot.lasers);
             if (this.leftHand)
                 bot.leftHandWeapon.add(this);
@@ -23,9 +23,10 @@ public class MediumLaser extends Laser {
                 bot.rightHandWeapon.add(this);
             bot.weapons.add(this);
             bot.lasers++;
-            if (bot.weaponWeight > bot.maxWeigth)
-                GameWorkShop.getWarning(bot);
+            //ПОСТ ПРОВЕРКА
+            if (bot.getWeaponWeight() > bot.getMaxWeigth())
+                Message.getWarning(bot);
 
-        } else GameWorkShop.getWarning(bot);
+        } else Message.getWarning(bot);
     }
 }

@@ -4,7 +4,8 @@ import Robots.MadCat;
 import Robots.Robot;
 import Robots.Thor;
 import Workshop.GameWorkShop;
-import music.PlayMusic;
+import music.PlaySounds;
+import music.Sounds;
 
 import java.io.*;
 
@@ -13,21 +14,19 @@ import java.io.*;
 Выберите мехов;
 Передвигайтесь по полю 12x12;
 При прицеливании введите число от 0 до 10;
-При попадании в голову - тройной урон;
+При попадании в голову - тройной урон, уничтожение головы или корпуса поностью выводит из строя противника;
 В корпус - обычный урон;
-В ноги - сниженный урон, но понижает очки хода противника;
-В руки -  сниженный урон, но понижает урон противника;
+В ноги - обычный урон, но при их уничтожении противник теряет спопсобность передвигаться ;
+В руки -  обычный урон, но при их уничтожении противник теряет оружие;
 При стрельбе вы перегреваетесь, но перегрев снижаеся при движении или пропуске хода;
 * */
 public class StartBattle {
-
     public static void main(String[] args) throws IOException, InterruptedException {
+        PlaySounds pS1 = new PlaySounds(Sounds.TRACK1);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Robot bot1;
         Robot bot2;
-        PlayMusic pM = new PlayMusic();
-        pM.start();
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             one:
             for (; ;) {
                 System.out.println("Первый игрок выберите меха");
@@ -76,9 +75,4 @@ public class StartBattle {
             Victory.gamePlay(bot1, bot2);
 reader.close();
     }
-
-    public static void wrongInput() {
-        System.out.println("Неверный ввод");
-    }
-
 }

@@ -1,5 +1,6 @@
 package Workshop;
 
+import Messages.Message;
 import Robots.Robot;
 import Game.StartBattle;
 import Workshop.Guns.BigGun;
@@ -19,146 +20,133 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class GameWorkShop {
-  static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)) ;
+    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
     public static void getWeapons(Robot bot) throws IOException {
-        boolean i , l , m;
+        boolean g, r, l;
         String weapon;
 
+        while (true) {
+            Message.getMessageWeapons(bot);
+            try {
+                String inputW = reader.readLine();
+                switch (inputW) {
+                    //ПУШКИ
+                    case ("1"):
+                        g = true;
 
-            while (true) {
-                Weapon.getMessageWeapons(bot);
-                try {
-                    String inputW = reader.readLine();
-                    switch (inputW) {
-                        //ПУШКИ
-                        case ("1"):
-                            i = true;
+                        while (g) {
+                            Gun.getMessageGuns(bot);
+                            String inputG = reader.readLine();
+                            switch (inputG) {
 
-                            while (i) {
-                                Gun.getMessageGuns(bot);
-                                String inputG = reader.readLine();
-                                switch (inputG) {
+                                case ("1"):
+                                    weapon = "miniGun";
+                                    Gun.handChoose(bot, weapon);
+                                    break;
 
-                                    case ("1"):
-                                        weapon = "miniGun";
-                                        Gun.handChoose(bot, weapon);
-                                         break;
+                                case ("2"):
+                                    weapon = "mediumGun";
+                                    Gun.handChoose(bot, weapon);
+                                    break;
 
-                                    case ("2"):
-                                        weapon = "mediumGun";
-                                        Gun.handChoose(bot, weapon);
-                                        break;
+                                case ("3"):
+                                    weapon = "BigGun";
+                                    Gun.handChoose(bot, weapon);
+                                    break;
 
-                                    case ("3"):
-                                        weapon = "BigGun";
-                                        Gun.handChoose(bot, weapon);
-                                        break;
+                                case ("4"):
+                                    g = false;
+                                    break;
 
-                                    case ("4"):
-                                        i = false;
-                                        break;
+                                case ("5"):
+                                    Gun.removeGuns(bot);
+                                    break;
 
-                                    case ("5"):
-                                        Gun.removeGuns(bot);
-                                        break;
-
-                                    default:
-                                        StartBattle.wrongInput();
-                                        break;
-                                }
+                                default:
+                                    Message.wrongInput();
+                                    break;
                             }
-                            break;
-                        //РАКЕТЫ
-                        case ("2"):
-                            l = true;
-                            while (l) {
-                                Rockets.getMessageRockets(bot);
-                                String inputR = reader.readLine();
-                                switch (inputR) {
-                                    case ("1"):
-                                        SmallDistanceRockets sDR = new SmallDistanceRockets();
-                                        sDR.instanceSmallDistanceRockets(bot);
-                                        break;
+                        }
+                        break;
+                    //РАКЕТЫ
+                    case ("2"):
+                        r = true;
+                        while (r) {
+                            Rockets.getMessageRockets(bot);
+                            String inputR = reader.readLine();
+                            switch (inputR) {
+                                case ("1"):
+                                    SmallDistanceRockets sDR = new SmallDistanceRockets();
+                                    sDR.instanceSmallDistanceRockets(bot);
+                                    break;
 
-                                    case ("2"):
-                                        LargeDistanceRockets lDR = new LargeDistanceRockets();
-                                        lDR.instanceLargeDistanceRockets(bot);
-                                        break;
+                                case ("2"):
+                                    LargeDistanceRockets lDR = new LargeDistanceRockets();
+                                    lDR.instanceLargeDistanceRockets(bot);
+                                    break;
 
-                                    case ("3"):
-                                        l = false;
-                                        break;
-                                    case ("4"):
-                                        Rockets.removeRockets(bot);
-                                        break;
+                                case ("3"):
+                                    r = false;
+                                    break;
+                                case ("4"):
+                                    Rockets.removeRockets(bot);
+                                    break;
 
-                                    default:
-                                        StartBattle.wrongInput();
-                                        break;
-                                }
+                                default:
+                                    Message.wrongInput();
+                                    break;
                             }
-                            break;
-                        //ЛАЗЕРЫ
-                        case ("3"):
-                            m = true;
-                            while (m) {
-                                Laser.getMessageLasers(bot);
-                                String inputL = reader.readLine();
-                                switch (inputL) {
-                                    case ("1"):
-                                        weapon = "smalllaser";
-                                       Laser.handChoose(bot, weapon);
-                                        break;
+                        }
+                        break;
+                    //ЛАЗЕРЫ
+                    case ("3"):
+                        l = true;
+                        while (l) {
+                            Laser.getMessageLasers(bot);
+                            String inputL = reader.readLine();
+                            switch (inputL) {
+                                case ("1"):
+                                    weapon = "smalllaser";
+                                    Laser.handChoose(bot, weapon);
+                                    break;
 
-                                    case ("2"):
-                                        weapon = "mediumlaser";
-                                        Laser.handChoose(bot, weapon);
-                                        break;
+                                case ("2"):
+                                    weapon = "mediumlaser";
+                                    Laser.handChoose(bot, weapon);
+                                    break;
 
-                                    case ("3"):
-                                        weapon = "biglaser";
-                                        Laser.handChoose(bot, weapon);
-                                        break;
-                                    case ("4"):
-                                        m = false;
-                                        break;
-                                    case ("5"):
-                                        Laser.removeLasers(bot);
-                                        break;
+                                case ("3"):
+                                    weapon = "biglaser";
+                                    Laser.handChoose(bot, weapon);
+                                    break;
+                                case ("4"):
+                                    l = false;
+                                    break;
+                                case ("5"):
+                                    Laser.removeLasers(bot);
+                                    break;
 
-                                    default:
-                                        StartBattle.wrongInput();
-                                }
+                                default:
+                                    Message.wrongInput();
                             }
-                            break;
-                        case ("4"):
-                            Weapon.removeWeapon(bot);
-                            break;
+                        }
+                        break;
+                    case ("4"):
+                        Weapon.removeWeapon(bot);
+                        break;
 
-                        case ("5"):
-                            if(bot.weaponWeight > bot.maxWeigth){
-                                System.out.println("Вы не можете выйти на бой с перевесом");
-                                System.out.println("Установите другой набор вооружения");
-                                continue;
-                            }
-                            else
+                    case ("5"):
+                        if (bot.getWeaponWeight() > bot.getMaxWeigth()) {
+                            System.out.println("Вы не можете выйти на бой с перевесом");
+                            System.out.println("Установите другой набор вооружения");
+                            continue;
+                        } else
                             return;
-                    }
-                } catch (IOException e) {
-                    StartBattle.wrongInput();
                 }
+            } catch (IOException e) {
+                Message.wrongInput();
             }
-
+        }
     }
-
-    public static void getWarning(Robot bot) {
-        if(bot.maxWeigth <= bot.weaponWeight) {
-            System.out.println("Превышен допустимый для вооружения вес");
-            System.out.println("Вы не можете выйти на бой с перевесом");
-            System.out.println("Установите другой набор вооружения");
-        } else if (bot.guns >= bot.gunSockets || bot.lasers >= bot.laserSockets || bot.rockets >= bot.rocketSockets) {
-            System.out.println("Превышен лимит установки данного типа оружия");}
-
-    }
-
 }

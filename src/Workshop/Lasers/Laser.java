@@ -1,6 +1,7 @@
 package Workshop.Lasers;
 
 import Game.StartBattle;
+import Messages.Message;
 import Robots.Robot;
 import Workshop.Weapon;
 
@@ -19,7 +20,7 @@ public abstract class Laser extends Weapon {
     }
 
     public static void getMessageLasers(Robot bot) {
-        System.out.println("Вес вооружения " + bot.weaponWeight);
+        System.out.println("Вес вооружения " + bot.getWeaponWeight());
         System.out.println("1. Малый лазер   | Урон: 3 | Дальность: 5 | Боезапас: 99  | Очки хода: 1  | Перегрев: 3 | Вес: 1 | Тепловой урон: 5 | ");
         System.out.println("2. Средний лазер | Урон: 6 | Дальность: 5 | Боезапас: 99  | Очки хода: 2  | Перегрев: 6 | Вес: 3 | Тепловой урон: 7 | ");
         System.out.println("3. Большой лазер | Урон:10 | Дальность: 4 | Боезапас: 99  | Очки хода: 3  | Перегрев: 8 | Вес: 6 | Тепловой урон:10 | ");
@@ -38,34 +39,32 @@ public abstract class Laser extends Weapon {
                     Iterator<Weapon> leftWeaponIterator = bot.leftHandWeapon.iterator();
                     while (leftWeaponIterator.hasNext()) {
                         Weapon nextLeftLaser = leftWeaponIterator.next();
-                        //   bot.leftHandSlots--;
                         leftWeaponIterator.remove();
                     }
                 } else if (laser.rightHand) {
                     Iterator<Weapon> rightWeaponIterator = bot.rightHandWeapon.iterator();
                     while (rightWeaponIterator.hasNext()) {
                         Weapon nextRightLaser = rightWeaponIterator.next();
-                        //     bot.rightHandSlots--;
                         rightWeaponIterator.remove();
                     }
                 }
 
                 if (laser instanceof SmallLaser) {
 
-                    bot.weaponWeight -= laser.weight;
+                    bot.setWeaponWeight(bot.getWeaponWeight() - laser.weight);
                     weaponIterator.remove();
                 }
                 if (laser instanceof MediumLaser) {
 
-                    bot.weaponWeight -= laser.weight;
+                    bot.setWeaponWeight(bot.getWeaponWeight() - laser.weight);
                     weaponIterator.remove();
                 }
                 if (laser instanceof BigLaser) {
-                    bot.weaponWeight -= laser.weight;
+                    bot.setWeaponWeight(bot.getWeaponWeight() - laser.weight);
                     weaponIterator.remove();
                 }
             }
-       }
+        }
         bot.lasers = 0;
         System.out.println("Все лазеры деинсталированы");
     }
@@ -80,8 +79,6 @@ public abstract class Laser extends Weapon {
             String inputHand = reader.readLine();
             switch (inputHand) {
                 case ("1"):
-                    // if (bot.maxRightHandSlots != bot.rightHandSlots) {
-                    //  bot.rightHandSlots++;
                     if (bot.maxRightHandSlots != bot.rightHandWeapon.size()) {
                         if (weapon.equals("smalllaser")) {
                             SmallLaser sLR = new SmallLaser(false, true);
@@ -100,8 +97,6 @@ public abstract class Laser extends Weapon {
                     break;
 
                 case ("2"):
-                   /* if (bot.maxLeftHandSlots != bot.leftHandSlots) {
-                        bot.leftHandSlots++;*/
                     if (bot.maxLeftHandSlots != bot.leftHandWeapon.size()) {
                         if (weapon.equals("smalllaser")) {
                             SmallLaser sLL = new SmallLaser(true, false);
@@ -122,12 +117,10 @@ public abstract class Laser extends Weapon {
                     return;
 
                 default:
-                    StartBattle.wrongInput();
+                    Message.wrongInput();
                     break;
             }
-
         }
     }
-
 }
 

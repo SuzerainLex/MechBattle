@@ -2,11 +2,14 @@ package Game;
 
 import Interfaces.iFight;
 import Interfaces.iMove;
+import Messages.Message;
 import Robots.Robot;
 import Workshop.Guns.Gun;
 import Workshop.Lasers.Laser;
 import Workshop.Rockets.Rockets;
 import Workshop.Weapon;
+import music.PlaySounds;
+import music.Sounds;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,15 +21,15 @@ import java.util.List;
 public class Turn {
     public static void makeTurn(Robot bot1, Robot bot2) throws IOException, InterruptedException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        while (bot1.numberOfMoves > 0) {
-            turnMessage(bot1, bot2);
+        while (bot1.numberOfMoves > 0 && Victory.victory != true) {
+            Message.turnMessage(bot1, bot2);
             String input3 = reader.readLine();
             switch (input3) {
                 //ХОДЬБА
                 case ("1"):
                     Thread.sleep(500);
-                    if (bot1.legsArmor > 0)
-                        iMove.go1(bot1, bot2);
+                    if (bot1.getLegsArmor() > 0)
+                        bot1.go1(bot2);
                     else System.out.println("У тебя нет ног!!!");
                     break;
                 //СТРЕЛЬБА
@@ -35,7 +38,7 @@ public class Turn {
                     System.out.println("Выберите оружие для стрельбы");
 
                     while (bot1.numberOfMoves > 0) {
-                        preFightMessage(bot1, bot2);
+                        Message.preFightMessage(bot1, bot2);
                         String inputWeapon = reader.readLine();
                         int i = 1;
                         switch (inputWeapon) {
@@ -53,12 +56,12 @@ public class Turn {
                                         switch (input6) {
                                             case ("1"):
                                                 System.out.println(bot1.leftHandWeapon.get(0).name);
-                                                iFight.distAttack1(bot1, bot2, bot1.leftHandWeapon.get(0));
+                                                bot1.distAttack(bot2, bot1.leftHandWeapon.get(0));
                                                 break;
                                             case ("2"):
                                                 if (bot1.leftHandWeapon.size() > 1) {
                                                     System.out.println(bot1.leftHandWeapon.get(1).name);
-                                                    iFight.distAttack1(bot1, bot2, bot1.leftHandWeapon.get(1));
+                                                    bot1.distAttack(bot2, bot1.leftHandWeapon.get(1));
                                                     break;
                                                 } else break;
                                         }
@@ -80,15 +83,14 @@ public class Turn {
                                         switch (input7) {
                                             case ("1"):
                                                 System.out.println(bot1.rightHandWeapon.get(0).name);
-                                                iFight.distAttack1(bot1, bot2, bot1.rightHandWeapon.get(0));
+                                                bot1.distAttack(bot2, bot1.rightHandWeapon.get(0));
                                                 break;
                                             case ("2"):
                                                 if (bot1.rightHandWeapon.size() > 1) {
                                                     System.out.println(bot1.rightHandWeapon.get(1).name);
-                                                    iFight.distAttack1(bot1, bot2, bot1.rightHandWeapon.get(1));
+                                                    bot1.distAttack(bot2, bot1.rightHandWeapon.get(1));
                                                     break;
                                                 } else break;
-
                                         }
                                         break;
                                     }
@@ -110,12 +112,12 @@ public class Turn {
                                             case ("1"):
 
                                                 System.out.println(bot1.allRockets.get(0).name);
-                                                iFight.distAttack1(bot1, bot2, bot1.allRockets.get(0));
-                                                break;
+                                                bot1.distAttack(bot2, bot1.allRockets.get(0));
+                                                 break;
                                             case ("2"):
                                                 if (bot1.allRockets.size() > 1) {
                                                     System.out.println(bot1.allRockets.get(0).name);
-                                                    iFight.distAttack1(bot1, bot2, bot1.allRockets.get(1));
+                                                    bot1.distAttack(bot2, bot1.allRockets.get(1));
                                                     break;
                                                 } else break;
                                         }
@@ -123,7 +125,6 @@ public class Turn {
                                     }
                                 } else System.out.println("Нет оружия");
                                 break;
-
                             //НАЗАД
                             case ("4"):
                                 break;
@@ -139,8 +140,9 @@ public class Turn {
                     break;
 
                 default:
-                    StartBattle.wrongInput();
+                    Message.wrongInput();
                     break;
+
             }
         }
     }
@@ -151,42 +153,5 @@ public class Turn {
 
     }
 
-    private static void turnMessage(Robot bot1, Robot bot2) throws InterruptedException {
-        System.out.println("Местоположение " + bot1.name + " " + bot1.coordinatX + ":" + bot1.coordinatY);
-        Thread.sleep(200);
-        System.out.println("Местоположение противника " + bot2.coordinatX + ":" + bot2.coordinatY);
-        Thread.sleep(200);
-        System.out.println("Состояние брони: " + "голова:" + bot1.headArmor + " корпус:" + bot1.bodyArmor + " левая рука:" + bot1.leftHandArmor + " правая рука:" + bot1.rightHandArmor +  " ноги:" + bot1.legsArmor);
-        Thread.sleep(200);
-        System.out.println("Очки действий " + bot1.numberOfMoves);
-        Thread.sleep(200);
-        System.out.println("Уровень перегрева составляет " + bot1.getHeatLev());
-        Thread.sleep(200);
-        System.out.println("1.Ход");
-        Thread.sleep(200);
-        System.out.println("2.Атака");
-        Thread.sleep(200);
-        System.out.println("3.Пропуск хода");
-        Thread.sleep(200);
-    }
-
-    private static void preFightMessage(Robot bot1, Robot bot2) {
-        boolean flag = false;
-        for (Weapon w : bot1.weapons) {
-            if ((bot2.coordinatX <= bot1.coordinatX + w.range & bot2.coordinatX >= bot1.coordinatX - w.range) && (bot2.coordinatY <= bot1.coordinatY + w.range & bot2.coordinatY >= bot1.coordinatY - w.range) && (bot1.leftHandWeapon.contains(w) || bot1.rightHandWeapon.contains(w) || bot1.allRockets.contains(w))) {
-                System.out.print("  " + w.name + " достает до противника  ");
-                flag = true;
-            }
-        }
-        if (flag == false)
-            System.out.println("Противник слишком далеко");
-
-
-        System.out.println();
-        System.out.println("1. Левая рука");
-        System.out.println("2. Правая рука");
-        System.out.println("3. Ракеты");
-        System.out.println("4. Назад");
-    }
 
 }
