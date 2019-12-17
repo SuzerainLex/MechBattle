@@ -2,7 +2,6 @@ package Workshop.Guns;
 
 import Messages.Message;
 import Robots.Robot;
-import Workshop.GameWorkShop;
 
 public class MediumGun extends Gun {
     public MediumGun(boolean leftHand, boolean rightHand) {

@@ -2,7 +2,6 @@ package Workshop.Lasers;
 
 import Messages.Message;
 import Robots.Robot;
-import Workshop.GameWorkShop;
 
 public class BigLaser extends Laser {
     public BigLaser(boolean leftHand, boolean rightHand) {

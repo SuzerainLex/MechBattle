@@ -1,7 +1,6 @@
 package Game;
 
 import Robots.Robot;
-
 import java.io.IOException;
 
 public class Victory {
@@ -11,24 +10,36 @@ public class Victory {
         while (!Victory.victory) {
 
 
-            if (bot1.numberOfMoves > 0 && !Victory.victory) {
+            if (bot1.getNumberOfMoves() > 0) {
                 System.out.println();
                 System.out.println("ХОД ИГРОКА 1");
                 Turn.makeTurn(bot1, bot2);
-                bot1.setHeatLev(bot1.getHeatLev() - 10);
-                bot2.numberOfMoves = bot2.maxNumberOfMoves;
+                if (bot2.getNumberOfMoves() == 0)
+                    System.out.println("Очки ходов закончились");
+                bot1.setHeatLev(bot1.getHeatLev() - 5);
+                bot2.setNumberOfMoves(bot2.getMaxNumberOfMoves());
             }
-            System.out.println("Очки ходов закончились");
 
-
-            if (bot2.numberOfMoves > 0 && !Victory.victory) {
+            if (bot2.getNumberOfMoves() > 0) {
                 System.out.println();
                 System.out.println("ХОД ИГРОКА 2");
                 Turn.makeTurn(bot2, bot1);
-                bot2.setHeatLev(bot2.getHeatLev() - 10);
-                bot1.numberOfMoves = bot1.maxNumberOfMoves;
+                if (bot2.getNumberOfMoves() == 0)
+                    System.out.println("Очки ходов закончились");
+                bot2.setHeatLev(bot2.getHeatLev() - 5);
+                bot1.setNumberOfMoves(bot1.getMaxNumberOfMoves());
             }
-            System.out.println("Очки ходов закончились");
         }
     }
-}
+ /*   private void playerTurn(Robot bot1, Robot bot2) throws IOException, InterruptedException {
+            System.out.println();
+            System.out.println("ХОД ИГРОКА 1");
+            Turn.makeTurn(bot1, bot2);
+            if (bot2.getNumberOfMoves() == 0)
+                System.out.println("Очки ходов закончились");
+            bot1.setHeatLev(bot1.getHeatLev() - 10);
+            bot2.setNumberOfMoves(bot2.getMaxNumberOfMoves());
+        }*/
+
+    }
+

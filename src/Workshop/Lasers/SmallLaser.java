@@ -1,18 +1,12 @@
 package Workshop.Lasers;
 
-import Game.StartBattle;
 import Messages.Message;
 import Robots.Robot;
-import Workshop.GameWorkShop;
-import Workshop.Guns.MiniGun;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class SmallLaser extends Laser {
     public SmallLaser(boolean leftHand, boolean rightHand) {
-        super("SmallLaser", 1, 3, 5, 3, 99, 5, 1);
+        super("SmallLaser", 1, 3, 5, 5, 99, 5, 1);
         this.rightHand = rightHand;
         this.leftHand = leftHand;
     }

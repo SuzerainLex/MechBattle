@@ -1,8 +1,6 @@
 package Workshop;
 
 import Robots.Robot;
-import Workshop.Guns.Gun;
-import Workshop.Lasers.Laser;
 
 public abstract class Weapon
 {

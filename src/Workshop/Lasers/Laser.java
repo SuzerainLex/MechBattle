@@ -1,6 +1,5 @@
 package Workshop.Lasers;
 
-import Game.StartBattle;
 import Messages.Message;
 import Robots.Robot;
 import Workshop.Weapon;

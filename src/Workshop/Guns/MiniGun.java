@@ -2,7 +2,6 @@ package Workshop.Guns;
 
 import Messages.Message;
 import Robots.Robot;
-import Workshop.GameWorkShop;
 
 public class MiniGun extends Gun {
     public MiniGun(boolean leftHand, boolean rightHand) {

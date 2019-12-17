@@ -1,27 +1,19 @@
 package Game;
 
-import Interfaces.iFight;
-import Interfaces.iMove;
+
 import Messages.Message;
 import Robots.Robot;
-import Workshop.Guns.Gun;
-import Workshop.Lasers.Laser;
-import Workshop.Rockets.Rockets;
 import Workshop.Weapon;
-import music.PlaySounds;
-import music.Sounds;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Turn {
     public static void makeTurn(Robot bot1, Robot bot2) throws IOException, InterruptedException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        while (bot1.numberOfMoves > 0 && Victory.victory != true) {
+        while (bot1.getNumberOfMoves() > 0 && Victory.victory != true) {
             Message.turnMessage(bot1, bot2);
             String input3 = reader.readLine();
             switch (input3) {
@@ -37,7 +29,7 @@ public class Turn {
                     Thread.sleep(500);
                     System.out.println("Выберите оружие для стрельбы");
 
-                    while (bot1.numberOfMoves > 0) {
+                    while (bot1.getNumberOfMoves() > 0) {
                         Message.preFightMessage(bot1, bot2);
                         String inputWeapon = reader.readLine();
                         int i = 1;
@@ -47,9 +39,10 @@ public class Turn {
                                 if (bot1.leftHandWeapon.size() != 0) {
                                     System.out.println("Выберите оружее");
                                     for (Weapon lW : bot1.leftHandWeapon) {
-                                        System.out.println(i++ + " " + lW.name + "Осталось боеприпасов " + lW.ammunition);
+                                        System.out.println(i++ +"." + " " + lW.name + "Осталось боеприпасов " + lW.ammunition);
                                     }
-                                    i = 1;
+                                    System.out.println("3. Назад");
+                                  //  i = 1;
                                     while (true) {
                                         String input6 = reader.readLine();
 
@@ -64,6 +57,8 @@ public class Turn {
                                                     bot1.distAttack(bot2, bot1.leftHandWeapon.get(1));
                                                     break;
                                                 } else break;
+                                            case("3"):
+                                                break;
                                         }
                                         break;
                                     }
@@ -76,6 +71,7 @@ public class Turn {
                                     for (Weapon rW : bot1.rightHandWeapon) {
                                         System.out.println(i++ + " " + rW.name + "Осталось боеприпасов " + rW.ammunition);
                                     }
+                                    System.out.println("3. Назад");
 
                                     while (true) {
                                         String input7 = reader.readLine();
@@ -91,6 +87,8 @@ public class Turn {
                                                     bot1.distAttack(bot2, bot1.rightHandWeapon.get(1));
                                                     break;
                                                 } else break;
+                                            case("3"):
+                                                break;
                                         }
                                         break;
                                     }
@@ -104,7 +102,7 @@ public class Turn {
                                         System.out.println("Выберите оружее");
                                         System.out.println(i++ + " " + rocket.name + "Осталось боеприпасов " + rocket.ammunition);
                                     }
-                                    i = 1;
+                                    //i = 1;
                                     while (true) {
                                         String input8 = reader.readLine();
 
@@ -134,9 +132,8 @@ public class Turn {
                     break;
                 //ПРОПУСК ХОДА
                 case ("3"):
-                    Thread.sleep(500);
+                    Thread.sleep(200);
                     System.out.println("Пропуск хода");
-                    passTurn(bot1);
                     break;
 
                 default:
@@ -146,12 +143,4 @@ public class Turn {
             }
         }
     }
-
-    public static void passTurn(Robot bot1) {
-        bot1.setHeatLev(bot1.getHeatLev() - 10);
-        bot1.numberOfMoves = 0;
-
-    }
-
-
 }

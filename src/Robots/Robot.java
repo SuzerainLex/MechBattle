@@ -6,18 +6,9 @@ import Game.Victory;
 import Interfaces.iFight;
 import Interfaces.iMove;
 import Messages.Message;
-import Workshop.Guns.BigGun;
-import Workshop.Guns.MediumGun;
-import Workshop.Guns.MiniGun;
-import Workshop.Lasers.BigLaser;
-import Workshop.Lasers.MediumLaser;
-import Workshop.Lasers.SmallLaser;
-import Workshop.Rockets.LargeDistanceRockets;
-import Workshop.Rockets.SmallDistanceRockets;
 import Workshop.Weapon;
 import music.PlaySounds;
 import music.Sounds;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,8 +20,8 @@ public class Robot implements iFight, iMove {
 
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private final int maxWeigth, radiator, initiativa;
-    private int heatLev = 0, headArmor, bodyArmor, legsArmor, leftHandArmor, rightHandArmor, weaponWeight;
-    public int coordinatX, coordinatY, guns = 0, rockets = 0, lasers = 0, rocketSockets, laserSockets, gunSockets, maxNumberOfMoves, numberOfMoves, meleemight, maxLeftHandSlots, maxRightHandSlots;
+    private int heatLev = 0, headArmor, bodyArmor, legsArmor, leftHandArmor, rightHandArmor, weaponWeight, numberOfMoves, maxNumberOfMoves;
+    public int coordinatX, coordinatY, guns = 0, rockets = 0, lasers = 0, rocketSockets, laserSockets, gunSockets, meleemight, maxLeftHandSlots, maxRightHandSlots;
     public final String name;
     public boolean firstTurn = false;
     public List<Weapon> weapons = new ArrayList<>();
@@ -175,50 +166,49 @@ public class Robot implements iFight, iMove {
                             }
                         }
                         if (rand == input4) {
-                            chooseSound(weapon);
+                            Sounds.chooseSound(weapon);
                             System.out.println("Попадание в голову!");
                             weapon.ammunition--;
-                            this.setNumberOfMoves(this.getNumberOfMoves() - weapon.cost);
-                            bot.setHeadArmor(bot.getHeadArmor() - weapon.damage);
-                            bot.setHeatLev(bot.getHeatLev() + weapon.damageHeat);
-                            this.setHeatLev(this.getHeatLev() + weapon.heat);
-
+                            this.numberOfMoves -= weapon.cost;
+                            bot.headArmor -= weapon.damage;
+                            bot.heatLev += weapon.damageHeat;
+                            this.heatLev += weapon.heat;
                             Message.getDistAttackMessage(this, bot, weapon);
+
                         } else if ((rand - 1) == input4 || (rand + 1) == input4) {
-                            chooseSound(weapon);
+                            Sounds.chooseSound(weapon);
                             System.out.println("Попадание в корпус!");
                             --weapon.ammunition;
                             this.numberOfMoves -= weapon.cost;
-                            bot.setBodyArmor(bot.getBodyArmor() - weapon.damage);
-                            bot.setHeatLev(bot.getHeatLev() + weapon.damageHeat);
-                            this.setHeatLev(this.getHeatLev() + weapon.heat);
-
+                            bot.bodyArmor -= weapon.damage;
+                            bot.heatLev += weapon.damageHeat;
+                            this.heatLev += weapon.heat;
                             Message.getDistAttackMessage(this, bot, weapon);
-                        } else if ((rand + 1) == input4 && bot.getLegsArmor() > 0) {
-                            chooseSound(weapon);
+
+                        } else if ((rand + 1) == input4 && bot.legsArmor > 0) {
+                            Sounds.chooseSound(weapon);
                             weapon.ammunition--;
                             System.out.println("Попадание в ноги!");
                             this.numberOfMoves -= weapon.cost;
-                            bot.setLegsArmor(bot.getLegsArmor() - weapon.damage);
-                            bot.setHeatLev(bot.getHeatLev() + weapon.damageHeat);
-                            this.setHeatLev(this.getHeatLev() + weapon.heat);
-                            if (bot.getLegsArmor() <= 0) {
+                            bot.legsArmor -= weapon.damage;
+                            bot.heatLev += weapon.damageHeat;
+                            this.heatLev += weapon.heat;
+                            if (bot.legsArmor <= 0) {
                                 PlaySounds warning = new PlaySounds(Sounds.WARNINGSOUND);
                                 System.out.println("Ноги противника уничтожены");
-
                             }
 
                             Message.getDistAttackMessage(this, bot, weapon);
 
-                        } else if ((rand + 2) == input4 && bot.getLeftHandArmor() > 0) {
-                            chooseSound(weapon);
+                        } else if ((rand + 2) == input4 && bot.leftHandArmor > 0) {
+                            Sounds.chooseSound(weapon);
                             weapon.ammunition--;
                             System.out.println("Попадание в левую руку!");
                             this.numberOfMoves -= weapon.cost;
-                            bot.setLeftHandArmor(bot.getLeftHandArmor() - weapon.damage);
-                            bot.setHeatLev(bot.getHeatLev() + weapon.damageHeat);
-                            this.setHeatLev(this.getHeatLev() + weapon.heat);
-                            if (bot.getLeftHandArmor() <= 0) {
+                            bot.leftHandArmor -= weapon.damage;
+                            bot.heatLev += weapon.damageHeat;
+                            this.heatLev += weapon.heat;
+                            if (bot.leftHandArmor <= 0) {
                                 PlaySounds warning = new PlaySounds(Sounds.WARNINGSOUND);
                                 System.out.println("Левая рука противника уничтожена");
 
@@ -229,16 +219,16 @@ public class Robot implements iFight, iMove {
                                 }
                             }
                             Message.getDistAttackMessage(this, bot, weapon);
-                        } else if ((rand - 2) == input4 && bot.getRightHandArmor() > 0) {
-                            chooseSound(weapon);
+
+                        } else if ((rand - 2) == input4 && bot.rightHandArmor > 0) {
+                            Sounds.chooseSound(weapon);
                             weapon.ammunition--;
                             System.out.println("Попадание в правую руку!");
                             this.numberOfMoves -= weapon.cost;
-                            this.setRightHandArmor(bot.getRightHandArmor() - weapon.damage);
-
-                            bot.setHeatLev(bot.getHeatLev() + weapon.damageHeat);
-                            this.setHeatLev(this.getHeatLev() + weapon.heat);
-                            if (bot.getRightHandArmor() <= 0) {
+                            bot.rightHandArmor -= weapon.damage;
+                            bot.heatLev += weapon.damageHeat;
+                            this.heatLev += weapon.heat;
+                            if (bot.rightHandArmor <= 0) {
                                 PlaySounds warning = new PlaySounds(Sounds.WARNINGSOUND);
                                 System.out.println("Правая рука противника уничтожена");
                                 Iterator<Weapon> rightWeaponIterator = bot.rightHandWeapon.iterator();
@@ -250,15 +240,15 @@ public class Robot implements iFight, iMove {
                             Message.getDistAttackMessage(this, bot, weapon);
 
                         } else {
-                            chooseSound(weapon);
+                            Sounds.chooseSound(weapon);
                             Thread.sleep(200);
                             System.out.println("Промазал!!!");
                             weapon.ammunition--;
                             this.numberOfMoves -= weapon.cost;
-                            this.setHeatLev(this.getHeatLev() + weapon.heat);
+                            this.heatLev += weapon.heat;
                             Thread.sleep(200);
                         }
-                        if (bot.getHeadArmor() <= 0 || bot.getBodyArmor() <= 0) {
+                        if (bot.headArmor <= 0 || bot.bodyArmor <= 0) {
                             Thread.sleep(500);
                             PlaySounds warning = new PlaySounds(Sounds.WARNINGSOUND);
                             System.out.println("Враг уничожен!");
@@ -302,47 +292,29 @@ public class Robot implements iFight, iMove {
 
             if (this.coordinatX == bot.coordinatX && this.coordinatY == bot.coordinatY) {
                 System.out.println("ТАРАН");
+                this.bodyArmor -= 5;
+                bot.bodyArmor -= 8;
+                System.out.println("Нанесено 8 урона врагу и 5 себе");
+                if (input.equals("w"))
+                    bot.coordinatY++;
+                if (input.equals("s")) ;
+                bot.coordinatY--;
+                if (input.equals("a"))
+                    bot.coordinatX--;
+                if (input.equals("d"))
+                    bot.coordinatX++;
+                if (bot.bodyArmor <= 0) {
+                    PlaySounds warning = new PlaySounds(Sounds.WARNINGSOUND);
+                    System.out.println("Враг уничожен!");
+                    System.out.println(this.name + " победил!!!");
+                    Victory.victory = true;
+                    return;
+                }
             }
-            if (input.equals("1")) {
+                  if (input.equals("1")) {
                 return;
             }
         }
         Message.goMessage(this, bot);
-    }
-
-    private void chooseSound(Weapon weapon) throws InterruptedException {
-        if (weapon instanceof MiniGun) {
-            PlaySounds pM = new PlaySounds(Sounds.MINIGUNSOUND);
-            explosiveSound(400);
-        } else if (weapon instanceof MediumGun) {
-            PlaySounds pM = new PlaySounds(Sounds.MEDIUMGUNSOUND);
-            explosiveSound(1000);
-        } else if (weapon instanceof BigGun) {
-            PlaySounds pM = new PlaySounds(Sounds.BIGGUNSOUND);
-            explosiveSound(2200);
-        } else if (weapon instanceof SmallDistanceRockets || weapon instanceof LargeDistanceRockets) {
-            PlaySounds pM = new PlaySounds(Sounds.ROCKETSOUND);
-            explosiveSound(3000);
-        } else if (weapon instanceof SmallLaser) {
-            PlaySounds pM = new PlaySounds(Sounds.SMALLLASERSOUND);
-            explosiveSound(500);
-        } else if (weapon instanceof MediumLaser) {
-            PlaySounds pM = new PlaySounds(Sounds.MEDIUMLASERSOUND);
-            explosiveSound(1000);
-        } else if (weapon instanceof BigLaser) {
-            PlaySounds pM = new PlaySounds(Sounds.BIGLASERSOUND);
-            explosiveSound(5200);
-        }
-
-    }
-    private void explosiveSound(int number) throws InterruptedException {
-        Thread.sleep(number);
-        int rand = (int)(Math.random() * 10);
-        if(rand > 5) {
-            PlaySounds pS = new PlaySounds(Sounds.HITSOUND1);
-        }
-        else {
-            PlaySounds pS = new PlaySounds(Sounds.HITSOUND2);
-        }
     }
 }

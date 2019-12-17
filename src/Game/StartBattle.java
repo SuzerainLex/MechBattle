@@ -18,11 +18,11 @@ import java.io.*;
 В корпус - обычный урон;
 В ноги - обычный урон, но при их уничтожении противник теряет спопсобность передвигаться ;
 В руки -  обычный урон, но при их уничтожении противник теряет оружие;
-При стрельбе вы перегреваетесь, но перегрев снижаеся при движении или пропуске хода;
+При стрельбе вы перегреваетесь, но перегрев снижаеся каждый ход;
 * */
 public class StartBattle {
     public static void main(String[] args) throws IOException, InterruptedException {
-        PlaySounds pS1 = new PlaySounds(Sounds.TRACK1);
+        PlaySounds pS1 = new PlaySounds(Sounds.TRACK3);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Robot bot1;
         Robot bot2;

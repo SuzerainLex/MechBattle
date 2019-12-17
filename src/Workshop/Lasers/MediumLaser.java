@@ -2,11 +2,11 @@ package Workshop.Lasers;
 
 import Messages.Message;
 import Robots.Robot;
-import Workshop.GameWorkShop;
+
 
 public class MediumLaser extends Laser {
     public MediumLaser(boolean leftHand, boolean rightHand) {
-        super("MediumLaser", 3, 6, 6, 3, 99, 7, 2);
+        super("MediumLaser", 3, 6, 6, 6, 99, 7, 2);
         this.rightHand = rightHand;
         this.leftHand = leftHand;
     }

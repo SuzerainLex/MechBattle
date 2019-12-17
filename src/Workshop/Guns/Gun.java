@@ -1,10 +1,8 @@
 package Workshop.Guns;
 
-import Game.StartBattle;
 import Messages.Message;
 import Robots.Robot;
 import Workshop.Weapon;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

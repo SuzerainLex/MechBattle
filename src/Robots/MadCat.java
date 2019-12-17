@@ -1,9 +1,5 @@
 package Robots;
 
-import Workshop.Weapon;
-
-
-
 public class MadCat extends Robot {
 
      public MadCat(int coordinatX, int coordinatY) {
