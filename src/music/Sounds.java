@@ -11,9 +11,7 @@ import Workshop.Rockets.SmallDistanceRockets;
 import Workshop.Weapon;
 
 public final class Sounds extends Thread {
-    public final static String TRACK1 = "musicList\\warpigs.mp3";
-    public final static String TRACK2 = "musicList\\hand.mp3";
-    public final static String TRACK3 = "musicList\\Hunters.mp3";
+    public final static String TRACK = "musicList\\Mix.mp3";
     public final static String ROCKETSOUND = "sounds\\rocket.mp3";
     public final static String SMALLLASERSOUND = "sounds\\smalllaser.mp3";
     public final static String MEDIUMLASERSOUND = "sounds\\smalllaser.mp3";

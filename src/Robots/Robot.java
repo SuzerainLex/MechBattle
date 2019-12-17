@@ -1,14 +1,14 @@
 package Robots;
 
-
 import Field.FieldOfBattle;
-import Game.Victory;
+import Game.Turn;
 import Interfaces.iFight;
 import Interfaces.iMove;
 import Messages.Message;
 import Workshop.Weapon;
 import music.PlaySounds;
 import music.Sounds;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,13 +16,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Robot implements iFight, iMove {
+public abstract class Robot implements iFight, iMove {
 
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    private final int maxWeigth, radiator, initiativa;
+    private final int maxWeigth, radiator, initiative;
     private int heatLev = 0, headArmor, bodyArmor, legsArmor, leftHandArmor, rightHandArmor, weaponWeight, numberOfMoves, maxNumberOfMoves;
     public int coordinatX, coordinatY, guns = 0, rockets = 0, lasers = 0, rocketSockets, laserSockets, gunSockets, meleemight, maxLeftHandSlots, maxRightHandSlots;
     public final String name;
+    public String playerName;
     public boolean firstTurn = false;
     public List<Weapon> weapons = new ArrayList<>();
     public List<Weapon> leftHandWeapon = new ArrayList<>();
@@ -32,10 +33,10 @@ public class Robot implements iFight, iMove {
 
     public Robot(String name, int meleemight, int initiativa, int armor, int radiator, int maxWeght, int gunSockets, int rocketSockets, int laserSockets, int maxNumberOfMoves, int maxLeftHandSlots, int maxRightHandSlots) {
         this.name = name;
-        this.meleemight = meleemight; //ЕЩЕ НЕ СДЕЛАЛ!
+        this.meleemight = meleemight;
         this.maxNumberOfMoves = maxNumberOfMoves;
         this.numberOfMoves = maxNumberOfMoves;
-        this.initiativa = initiativa;
+        this.initiative = initiativa;
         this.radiator = radiator;
         this.maxWeigth = maxWeght;
         this.laserSockets = laserSockets;
@@ -60,8 +61,8 @@ public class Robot implements iFight, iMove {
         this.heatLev = heatLev;
     }
 
-    public int getInitiativa() {
-        return initiativa;
+    public int getInitiative() {
+        return initiative;
     }
 
     public int getMaxNumberOfMoves() {
@@ -90,6 +91,10 @@ public class Robot implements iFight, iMove {
 
     public void setNumberOfMoves(int numberOfMoves) {
         this.numberOfMoves = numberOfMoves;
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 
     //ГОЛОВА
@@ -249,12 +254,7 @@ public class Robot implements iFight, iMove {
                             Thread.sleep(200);
                         }
                         if (bot.headArmor <= 0 || bot.bodyArmor <= 0) {
-                            Thread.sleep(500);
-                            PlaySounds warning = new PlaySounds(Sounds.WARNINGSOUND);
-                            System.out.println("Враг уничожен!");
-                            Thread.sleep(500);
-                            System.out.println(this.name + " победил!!!");
-                            Victory.victory = true;
+                            Message.victoryMessage(this);
                         }
 
                     } else System.out.println("Не достаю до цели");
@@ -263,9 +263,10 @@ public class Robot implements iFight, iMove {
         } else System.out.println("Нет боеприпасов!");
     }
 
-    public void go1(Robot bot) throws IOException {
+    public void go1(Robot bot) throws IOException, InterruptedException {
         while (this.numberOfMoves > 0) {
             Message.goMessage(this, bot);
+            Message.preMoveMessage(this, bot);
             String input = reader.readLine();
             if (input.equals("w") && this.coordinatY < FieldOfBattle.SIDEY) {
                 System.out.println("вперед");
@@ -292,29 +293,36 @@ public class Robot implements iFight, iMove {
 
             if (this.coordinatX == bot.coordinatX && this.coordinatY == bot.coordinatY) {
                 System.out.println("ТАРАН");
-                this.bodyArmor -= 5;
-                bot.bodyArmor -= 8;
-                System.out.println("Нанесено 8 урона врагу и 5 себе");
+                this.bodyArmor -= meleemight / 2;
+                bot.bodyArmor -= meleemight;
+                System.out.println("Нанесено " + meleemight + " урона врагу и " + meleemight / 2 + " себе");
                 if (input.equals("w"))
-                    bot.coordinatY++;
-                if (input.equals("s")) ;
-                bot.coordinatY--;
+                    this.coordinatY = bot.coordinatY-1;
+                if (input.equals("s"))
+                this.coordinatY = bot.coordinatY+1;
                 if (input.equals("a"))
-                    bot.coordinatX--;
+                    this.coordinatX = this.coordinatX++;
                 if (input.equals("d"))
-                    bot.coordinatX++;
-                if (bot.bodyArmor <= 0) {
-                    PlaySounds warning = new PlaySounds(Sounds.WARNINGSOUND);
-                    System.out.println("Враг уничожен!");
-                    System.out.println(this.name + " победил!!!");
-                    Victory.victory = true;
-                    return;
-                }
+                    this.coordinatX = this.coordinatX--;
             }
-                  if (input.equals("1")) {
+            if (bot.bodyArmor <= 0) {
+                Message.victoryMessage(this);
                 return;
             }
+            if (input.equals("1")) {
+                return;
+            }
+           Message.goMessage(this, bot);
         }
-        Message.goMessage(this, bot);
+    }
+
+    public void playerTurn(Robot bot) throws IOException, InterruptedException {
+        System.out.println();
+        System.out.println(this.getPlayerName());
+        Turn.makeTurn(this, bot);
+        if (bot.getNumberOfMoves() == 0)
+            System.out.println("Очки ходов закончились");
+        this.setHeatLev(this.getHeatLev() - 5);
+        bot.setNumberOfMoves(bot.getMaxNumberOfMoves());
     }
 }

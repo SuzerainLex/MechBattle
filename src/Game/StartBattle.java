@@ -1,8 +1,7 @@
 package Game;
 
-import Robots.MadCat;
-import Robots.Robot;
-import Robots.Thor;
+import Messages.Message;
+import Robots.*;
 import Workshop.GameWorkShop;
 import music.PlaySounds;
 import music.Sounds;
@@ -11,68 +10,109 @@ import java.io.*;
 
 
 /*
+Это игра для двоих игроков.
 Выберите мехов;
+Установите оружие соотвествующее весу меха;
 Передвигайтесь по полю 12x12;
+Ваша цель уничтожить оппонента;
 При прицеливании введите число от 0 до 10;
-При попадании в голову - тройной урон, уничтожение головы или корпуса поностью выводит из строя противника;
-В корпус - обычный урон;
-В ноги - обычный урон, но при их уничтожении противник теряет спопсобность передвигаться ;
-В руки -  обычный урон, но при их уничтожении противник теряет оружие;
+Уничтожение головы или корпуса полностью выводит из строя противника;
+При уничтожении ног противник теряет спопсобность передвигаться ;
+При уничтожении рук противник теряет оружие;
 При стрельбе вы перегреваетесь, но перегрев снижаеся каждый ход;
-* */
+При столкновении с врагом вы вступаете в ближний бой и наносите урон противнику (meleemight) по (bodyarmor),
+ но также и половину этого урона приходится нв вашу бронюю (bodyarmor);
+*/
 public class StartBattle {
+    public static PlaySounds pS1;
+
     public static void main(String[] args) throws IOException, InterruptedException {
-        PlaySounds pS1 = new PlaySounds(Sounds.TRACK3);
+      //  pS1 = new PlaySounds(Sounds.TRACK);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Robot bot1;
         Robot bot2;
 
-            one:
-            for (; ;) {
-                System.out.println("Первый игрок выберите меха");
-                System.out.println("1.THOR");
-                System.out.println("2.MAD CAT");
+        one:
+        for (; ;) {
+            System.out.println("Первый игрок выберите меха");
+            System.out.println("1.THOR");
+            System.out.println("2.MAD CAT");
+            System.out.println("3.LOCUST");
+            System.out.println("4.ATLAS");
 
-                String input1 = reader.readLine();
-                switch (input1) {
+            String input1 = reader.readLine();
+            switch (input1) {
 
-                    case ("1"):
-                        bot1 = new Thor(6, 0);
-                        System.out.println("Ты выбрал THOR");
-                        GameWorkShop.getWeapons(bot1);
-                        break one;
-                    case ("2"):
-                        bot1 = new MadCat(6, 0);
-                        System.out.println("Ты выбрал MAD CAT");
-                        GameWorkShop.getWeapons(bot1);
-                        break one;
+                case ("1"):
+                    bot1 = new Thor("PLAYER 1", 6, 0);
+                    System.out.println("Ты выбрал " + bot1.name);
+                    Message.mechChar(bot1);
+                    GameWorkShop.getWeapons(bot1);
+                    break one;
+                case ("2"):
+                    bot1 = new MadCat("PLAYER 1", 6, 0);
+                    System.out.println("Ты выбрал " + bot1.name);
+                    Message.mechChar(bot1);
+                    GameWorkShop.getWeapons(bot1);
+                    break one;
+                case ("3"):
+                    bot1 = new Locust("PLAYER 1", 6, 0);
+                    System.out.println("Ты выбрал " + bot1.name);
+                    Message.mechChar(bot1);
+                    GameWorkShop.getWeapons(bot1);
+                    break one;
+                case ("4"):
+                    bot1 = new Atlas("PLAYER 1", 6, 0);
+                    System.out.println("Ты выбрал " + bot1.name);
+                    Message.mechChar(bot1);
+                    GameWorkShop.getWeapons(bot1);
+                    break one;
 
-                    default:
-                        System.out.println("Выберите меха");
-                }
+                default:
+                    System.out.println("Выберите меха");
             }
-            two:
-            while (true) {
-                System.out.println("Второй игрок выберите меха");
-                System.out.println("1.THOR");
-                System.out.println("2.MAD CAT");
+        }
+        two:
+        for (; ;) {
+            System.out.println("Второй игрок выберите меха");
+            System.out.println("1.THOR");
+            System.out.println("2.MAD CAT");
+            System.out.println("3.LOCUST");
+            System.out.println("4.ATLAS");
 
-                String input2 = reader.readLine();
-                if (input2.equals("1")) {
-                    bot2 = new Thor(6, 12);
-                    System.out.println("Ты выбрал THOR");
+            String input2 = reader.readLine();
+            switch (input2) {
+                case ("1"):
+                    bot2 = new Thor("PLAYER 2", 6, 12);
+                    System.out.println("Ты выбрал " + bot2.name);
+                    Message.mechChar(bot2);
                     GameWorkShop.getWeapons(bot2);
                     break two;
-                } else if (input2.equals("2")) {
-                    bot2 = new MadCat(6, 12);
-                    System.out.println("Ты выбрал MAD CAT");
+                case ("2"):
+                    bot2 = new MadCat("PLAYER 2", 6, 12);
+                    System.out.println("Ты выбрал " + bot2.name);
+                    Message.mechChar(bot2);
                     GameWorkShop.getWeapons(bot2);
                     break two;
-                } else
+                case ("3"):
+                    bot2 = new Locust("PLAYER 2", 6, 12);
+                    System.out.println("Ты выбрал " + bot2.name);
+                    Message.mechChar(bot2);
+                    GameWorkShop.getWeapons(bot2);
+                    break two;
+                case ("4"):
+                    bot2 = new Atlas("PLAYER 2", 6, 12);
+                    System.out.println("Ты выбрал " + bot2.name);
+                    Message.mechChar(bot2);
+                    GameWorkShop.getWeapons(bot2);
+                    break two;
+
+                default:
                     System.out.println("Второй игрок выберите меха");
             }
-            FirstTurn.calcFirstTurn(bot1, bot2);
-            Victory.gamePlay(bot1, bot2);
-reader.close();
+        }
+        FirstTurn.calcFirstTurn(bot1, bot2);
+        Victory.gamePlay(bot1, bot2);
+        reader.close();
     }
 }

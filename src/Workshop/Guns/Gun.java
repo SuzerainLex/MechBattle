@@ -75,13 +75,13 @@ public abstract class Gun extends Weapon {
                     if (bot.maxLeftHandSlots != bot.rightHandWeapon.size()) {
                         if (weapon.equals("miniGun")) {
                             MiniGun miniGR = new MiniGun(false, true);
-                            miniGR.instanceMiniGun(bot);
+                            miniGR.instanceGun(bot);
                         } else if (weapon.equals("mediumGun")) {
                             MediumGun mediumGunR = new MediumGun(false, true);
-                            mediumGunR.instanceMediumGun(bot);
+                            mediumGunR.instanceGun(bot);
                         } else if (weapon.equals("BigGun")) {
                             BigGun BigGunR = new BigGun(false, true);
-                            BigGunR.instanceBigGun(bot);
+                            BigGunR.instanceGun(bot);
                         }
                         return;
                     } else
@@ -92,13 +92,13 @@ public abstract class Gun extends Weapon {
                     if (bot.maxLeftHandSlots != bot.leftHandWeapon.size()) {
                         if (weapon.equals("miniGun")) {
                             MiniGun miniGL = new MiniGun(true, false);
-                            miniGL.instanceMiniGun(bot);
+                            miniGL.instanceGun(bot);
                         } else if (weapon.equals("mediumGun")) {
                             MediumGun mediumGunL = new MediumGun(true, false);
-                            mediumGunL.instanceMediumGun(bot);
+                            mediumGunL.instanceGun(bot);
                         } else if (weapon.equals("BigGun")) {
                             BigGun BigGunL = new BigGun(true, false);
-                            BigGunL.instanceBigGun(bot);
+                            BigGunL.instanceGun(bot);
                         }
                         return;
                     } else
@@ -114,6 +114,22 @@ public abstract class Gun extends Weapon {
             }
 
         }
+    }
+    public void instanceGun(Robot bot) {
+        if (bot.getMaxWeigth() > bot.getWeaponWeight() && bot.guns < bot.gunSockets) {
+            System.out.println("Установлена " + this.name);
+            bot.guns++;
+            bot.setWeaponWeight(bot.getWeaponWeight()+ this.weight);
+            System.out.println("Установлено пушек " + bot.guns);
+            if (this.leftHand)
+                bot.leftHandWeapon.add(this);
+            else
+                bot.rightHandWeapon.add(this);
+            bot.weapons.add(this);
+            //ПОСТ ПРОВЕРКА
+            if (bot.getWeaponWeight() > bot.getMaxWeigth())
+                Message.getWarning(bot);
+        } else  Message.getWarning(bot);
     }
 }
 

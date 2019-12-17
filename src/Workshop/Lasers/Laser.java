@@ -20,9 +20,9 @@ public abstract class Laser extends Weapon {
 
     public static void getMessageLasers(Robot bot) {
         System.out.println("Вес вооружения " + bot.getWeaponWeight());
-        System.out.println("1. Малый лазер   | Урон: 3 | Дальность: 5 | Боезапас: 99  | Очки хода: 1  | Перегрев: 3 | Вес: 1 | Тепловой урон: 5 | ");
-        System.out.println("2. Средний лазер | Урон: 6 | Дальность: 5 | Боезапас: 99  | Очки хода: 2  | Перегрев: 6 | Вес: 3 | Тепловой урон: 7 | ");
-        System.out.println("3. Большой лазер | Урон:10 | Дальность: 4 | Боезапас: 99  | Очки хода: 3  | Перегрев: 8 | Вес: 6 | Тепловой урон:10 | ");
+        System.out.println("1. Малый лазер   | Урон: 3 | Дальность: 6 | Боезапас: 10 | Очки хода: 1  | Перегрев: 3 | Вес: 1 | Тепловой урон: 5 | ");
+        System.out.println("2. Средний лазер | Урон: 6 | Дальность: 5 | Боезапас: 8  | Очки хода: 2  | Перегрев: 6 | Вес: 3 | Тепловой урон: 7 | ");
+        System.out.println("3. Большой лазер | Урон:10 | Дальность: 4 | Боезапас: 6  | Очки хода: 3  | Перегрев: 8 | Вес: 6 | Тепловой урон:10 | ");
         System.out.println("4. Назад");
         System.out.println("5. Убрать все лазеры");
     }
@@ -82,13 +82,13 @@ public abstract class Laser extends Weapon {
                         if (weapon.equals("smalllaser")) {
                             SmallLaser sLR = new SmallLaser(false, true);
 
-                            sLR.instanceSmallLaser(bot);
+                            sLR.laserInstance(bot);
                         } else if (weapon.equals("mediumlaser")) {
                             MediumLaser mLR = new MediumLaser(false, true);
-                            mLR.instanceMediumlLaser(bot);
+                            mLR.laserInstance(bot);
                         } else if (weapon.equals("biglaser")) {
                             BigLaser bLR = new BigLaser(false, true);
-                            bLR.instanceBiglLaser(bot);
+                            bLR.laserInstance(bot);
                         }
                         return;
                     } else
@@ -99,13 +99,13 @@ public abstract class Laser extends Weapon {
                     if (bot.maxLeftHandSlots != bot.leftHandWeapon.size()) {
                         if (weapon.equals("smalllaser")) {
                             SmallLaser sLL = new SmallLaser(true, false);
-                            sLL.instanceSmallLaser(bot);
+                            sLL.laserInstance(bot);
                         } else if (weapon.equals("mediumlaser")) {
                             MediumLaser mLL = new MediumLaser(true, false);
-                            mLL.instanceMediumlLaser(bot);
+                            mLL.laserInstance(bot);
                         } else if (weapon.equals("biglaser")) {
                             BigLaser bLL = new BigLaser(true, false);
-                            bLL.instanceBiglLaser(bot);
+                            bLL.laserInstance(bot);
                         }
                         return;
                     } else
@@ -121,5 +121,26 @@ public abstract class Laser extends Weapon {
             }
         }
     }
+
+    public void laserInstance(Robot bot) {
+        if (bot.getMaxWeigth() > bot.getWeaponWeight() && bot.lasers < bot.laserSockets) {
+            System.out.println("Установлен " + this.name);
+            bot.lasers++;
+            bot.setWeaponWeight(bot.getWeaponWeight() + this.weight);
+            System.out.println("Вес вооружения " + bot.getWeaponWeight());
+            System.out.println("Установлено лазеров " + bot.lasers);
+            if (this.leftHand)
+                bot.leftHandWeapon.add(this);
+            else
+                bot.rightHandWeapon.add(this);
+            bot.weapons.add(this);
+
+            //ПОСТ ПРОВЕРКА
+            if (bot.getWeaponWeight() > bot.getMaxWeigth())
+                Message.getWarning(bot);
+
+        } else Message.getWarning(bot);
+    }
+
 }
 

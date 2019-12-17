@@ -1,9 +1,8 @@
 package Workshop.Rockets;
 
+import Messages.Message;
 import Robots.Robot;
 import Workshop.Weapon;
-
-import java.io.IOException;
 import java.util.Iterator;
 
 public abstract class Rockets extends Weapon {
@@ -37,4 +36,20 @@ public abstract class Rockets extends Weapon {
         bot.rockets = 0;
         System.out.println("Все ракеты деинсталированы");
     }
+    public void instanceRockets(Robot bot) {
+        if (bot.getMaxWeigth() > bot.getWeaponWeight() && bot.rockets < bot.rocketSockets) {
+            System.out.println("Установлены  " + this.name);
+            bot.weapons.add(this);
+            bot.allRockets.add(this);
+            bot.rockets++;
+            bot.setWeaponWeight(bot.getWeaponWeight() + this.weight);
+            System.out.println("Установлено ракет " + bot.rockets);
+            //ПОСТ ПРОВЕРКА
+            if (bot.getWeaponWeight() > bot.getMaxWeigth())
+                Message.getWarning(bot);
+        }
+        else  Message.getWarning(bot);
+    }
+
 }
+

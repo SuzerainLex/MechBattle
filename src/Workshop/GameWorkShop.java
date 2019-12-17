@@ -71,12 +71,12 @@ public class GameWorkShop {
                             switch (inputR) {
                                 case ("1"):
                                     SmallDistanceRockets sDR = new SmallDistanceRockets();
-                                    sDR.instanceSmallDistanceRockets(bot);
+                                    sDR.instanceRockets(bot);
                                     break;
 
                                 case ("2"):
                                     LargeDistanceRockets lDR = new LargeDistanceRockets();
-                                    lDR.instanceLargeDistanceRockets(bot);
+                                    lDR.instanceRockets(bot);
                                     break;
 
                                 case ("3"):

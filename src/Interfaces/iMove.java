@@ -5,6 +5,6 @@ import java.io.IOException;
 
 
 public interface iMove {
-  void go1(Robot bot) throws IOException;
+  void go1(Robot bot) throws IOException, InterruptedException;
 }
 

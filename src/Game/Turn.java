@@ -133,6 +133,7 @@ public class Turn {
                 //ПРОПУСК ХОДА
                 case ("3"):
                     Thread.sleep(200);
+                    bot1.setNumberOfMoves(0);
                     System.out.println("Пропуск хода");
                     break;
 
