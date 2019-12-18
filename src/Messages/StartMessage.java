@@ -17,13 +17,13 @@ public class StartMessage {
         Thread.sleep(700);
         System.out.println("Уничтожение головы или корпуса полностью выводит из строя противника;");
         Thread.sleep(700);
-        System.out.println(" При уничтожении ног противник теряет спопсобность передвигаться;");
+        System.out.println("При уничтожении ног противник теряет спопсобность передвигаться;");
         Thread.sleep(700);
         System.out.println("При уничтожении рук противник теряет оружие;");
         Thread.sleep(700);
-        System.out.println(" При стрельбе вы перегреваетесь, но перегрев снижаеся каждый ход;");
+        System.out.println("При стрельбе вы перегреваетесь, но перегрев снижаеся каждый ход;");
         Thread.sleep(700);
-        System.out.println(" При столкновении с врагом вы вступаете в ближний бой и наносите урон противнику (meleemight) по (bodyarmor), но также и половину этого урона приходится на вашу броню (bodyarmor)");
+        System.out.println("При столкновении с врагом вы вступаете в ближний бой и наносите урон противнику (meleemight) по (bodyarmor), но также и половину этого урона приходится на вашу броню (bodyarmor)");
         System.out.println();
         Thread.sleep(4000);
         System.out.println("                       MECHBATTLE");
