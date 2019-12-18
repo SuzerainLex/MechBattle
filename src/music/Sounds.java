@@ -23,6 +23,7 @@ public final class Sounds extends Thread {
     public final static String WARNINGSOUND = "sounds\\warning.mp3";
     public final static String HITSOUND1 = "sounds\\Hit1.mp3";
     public final static String HITSOUND2 = "sounds\\Hit2.mp3";
+    public final static String MELLEESOUND = "sounds\\taran.mp3";
 
     public static void chooseSound(Weapon weapon) throws InterruptedException {
         if (weapon instanceof MiniGun) {

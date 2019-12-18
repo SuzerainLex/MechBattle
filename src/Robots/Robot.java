@@ -292,6 +292,7 @@ public abstract class Robot implements iFight, iMove {
             }
 
             if (this.coordinatX == bot.coordinatX && this.coordinatY == bot.coordinatY) {
+                PlaySounds pS = new PlaySounds(Sounds.MELLEESOUND);
                 System.out.println("ТАРАН");
                 this.bodyArmor -= meleemight / 2;
                 bot.bodyArmor -= meleemight;

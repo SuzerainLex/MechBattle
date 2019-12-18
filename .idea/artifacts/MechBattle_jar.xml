@@ -24,6 +24,7 @@
       <element id="file-copy" path="$PROJECT_DIR$/sounds/Step.mp3" />
       <element id="file-copy" path="$PROJECT_DIR$/sounds/warning.mp3" />
       <element id="library" level="project" name="jl1.0.11" />
+      <element id="file-copy" path="$PROJECT_DIR$/sounds/taran.mp3" />
     </root>
   </artifact>
 </component>
