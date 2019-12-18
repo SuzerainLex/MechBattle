@@ -71,7 +71,7 @@ public class Message {
 
     public static void getMessageWeapons(Robot bot) {
         System.out.println("Выберите оружие");
-        System.out.println("Вес вооружения " + bot.getWeaponWeight());
+        System.out.println("Вес вооружения " + bot.getWeaponWeight() + " из " + bot.getMaxWeigth());
         System.out.println("Установлены : ");
         for (Weapon w : bot.weapons) {
             if (w instanceof Gun) {
@@ -99,6 +99,7 @@ public class Message {
 
     public static void getWarning(Robot bot) {
         if (bot.getMaxWeigth() <= bot.getWeaponWeight()) {
+            PlaySounds pS = new PlaySounds(Sounds.WARNINGSOUND);
             System.out.println("Превышен допустимый для вооружения вес");
             System.out.println("Вы не можете выйти на бой с перевесом");
             System.out.println("Установите другой набор вооружения");
@@ -123,7 +124,7 @@ public class Message {
             Thread.sleep(200);
             if (weapon instanceof Laser)
                 System.out.println("Противнику нанесен тепловой урон " + weapon.damageHeat);
-            System.out.println("Уровень перегрева составляет " + bot1.getHeatLev() + "из " + bot1.getRadiator());
+            System.out.println("Уровень перегрева составляет " + bot1.getHeatLev() + " из " + bot1.getRadiator());
         } catch (InterruptedException ie) {
             System.out.println("ERROR");
         }
@@ -147,6 +148,4 @@ public class Message {
         System.out.format("Очки хода: %d  Радиатор: %d  Инициатива: %d  Урон в ближнем бою: %d  Максимальный вес %d%n Броня головы: %d  Броня тела: %d  Броня левой руки: %d  Броня правой руки: %d  Броня ног: %d  Сокеты лазеров: %d  Сокеты пушек: %d  Сокеты ракет: %d  Максимум оружия на левой руке: %d  Максимум оружия на правой руке %d%n ",
                 bot.getNumberOfMoves(), bot.getRadiator(), bot.getInitiative(), bot.meleemight, bot.getMaxWeigth(), bot.getHeadArmor(), bot.getBodyArmor(), bot.getLeftHandArmor(), bot.getRightHandArmor(), bot.getLegsArmor(), bot.laserSockets, bot.gunSockets, bot.rocketSockets, bot.maxLeftHandSlots, bot.maxLeftHandSlots);
     }
-
-
 }

@@ -11,13 +11,7 @@ public abstract class Rockets extends Weapon {
         super(name, cost, weight, damage, range, heat, ammunition, damageHeat);
     }
 
-    public static void getMessageRockets(Robot bot) {
-        System.out.println("Вес вооружения " + bot.getWeaponWeight());
-        System.out.println("1. Ракеты малой дальности  | Урон: 7 | Дальность: 6 | Боезапас: 4  | Очки хода: 2  | Перегрев: 1 | Вес: 5 |");
-        System.out.println("2. Ракеты большой дальности  | Урон: 5 | Дальность: 8 | Боезапас: 4  | Очки хода: 2  | Перегрев: 1 | Вес: 5 |");
-        System.out.println("3. Назад");
-        System.out.println("4. Убрать все ракеты");
-    }
+
 
     public static void removeRockets(Robot bot) {
         Iterator<Weapon> weaponIterator = bot.weapons.iterator();

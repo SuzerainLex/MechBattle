@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
 Main-Class: Game.StartBattle
+Class-Path: lib/jl1.0.1.jar
 

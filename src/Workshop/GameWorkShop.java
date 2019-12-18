@@ -1,6 +1,7 @@
 package Workshop;
 
 import Messages.Message;
+import Messages.WeaponMessage;
 import Robots.Robot;
 import Workshop.Guns.Gun;
 import Workshop.Lasers.Laser;
@@ -29,7 +30,7 @@ public class GameWorkShop {
                         g = true;
 
                         while (g) {
-                            Gun.getMessageGuns(bot);
+                            WeaponMessage.getMessageGuns(bot);
                             String inputG = reader.readLine();
                             switch (inputG) {
 
@@ -66,7 +67,7 @@ public class GameWorkShop {
                     case ("2"):
                         r = true;
                         while (r) {
-                            Rockets.getMessageRockets(bot);
+                            WeaponMessage.getMessageRockets(bot);
                             String inputR = reader.readLine();
                             switch (inputR) {
                                 case ("1"):
@@ -96,7 +97,7 @@ public class GameWorkShop {
                     case ("3"):
                         l = true;
                         while (l) {
-                            Laser.getMessageLasers(bot);
+                            WeaponMessage.getMessageLasers(bot);
                             String inputL = reader.readLine();
                             switch (inputL) {
                                 case ("1"):

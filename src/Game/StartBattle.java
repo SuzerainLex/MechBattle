@@ -1,6 +1,7 @@
 package Game;
 
 import Messages.Message;
+import Messages.StartMessage;
 import Robots.*;
 import Workshop.GameWorkShop;
 import music.PlaySounds;
@@ -21,13 +22,20 @@ import java.io.*;
 При уничтожении рук противник теряет оружие;
 При стрельбе вы перегреваетесь, но перегрев снижаеся каждый ход;
 При столкновении с врагом вы вступаете в ближний бой и наносите урон противнику (meleemight) по (bodyarmor),
- но также и половину этого урона приходится нв вашу бронюю (bodyarmor);
+ но также и половину этого урона приходится на вашу броню (bodyarmor);
 */
 public class StartBattle {
-    public static PlaySounds pS1;
+    static {
+        try {
+            StartMessage.rulesMessage();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        pS1 = new PlaySounds(Sounds.TRACK);
+    }
 
+    public static PlaySounds pS1;
     public static void main(String[] args) throws IOException, InterruptedException {
-      //  pS1 = new PlaySounds(Sounds.TRACK);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Robot bot1;
         Robot bot2;
