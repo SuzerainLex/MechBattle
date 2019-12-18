@@ -114,7 +114,7 @@ public class Turn {
                                                  break;
                                             case ("2"):
                                                 if (bot1.allRockets.size() > 1) {
-                                                    System.out.println(bot1.allRockets.get(0).name);
+                                                    System.out.println(bot1.allRockets.get(1).name);
                                                     bot1.distAttack(bot2, bot1.allRockets.get(1));
                                                     break;
                                                 } else break;

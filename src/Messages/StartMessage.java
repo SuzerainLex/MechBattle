@@ -26,11 +26,20 @@ public class StartMessage {
         System.out.println("При столкновении с врагом вы вступаете в ближний бой и наносите урон противнику (meleemight) по (bodyarmor), но также и половину этого урона приходится на вашу броню (bodyarmor)");
         System.out.println();
         Thread.sleep(4000);
-        System.out.println("                       MECHBATTLE");
-        Thread.sleep(700);
+        printMes();
+        Thread.sleep(400);
         System.out.println("                       Автор: SuzerainLex");
         System.out.println();
 
+    }
+
+    private static void printMes() throws InterruptedException {
+        char[] logo = {'M', 'E', 'C', 'H', 'B', 'A', 'T', 'T', 'L', 'E'};
+        for (int i = 0; i < logo.length; i++) {
+            Thread.sleep(300);
+            System.out.print(logo[i]);
+        }
+        System.out.println();
     }
 
 }
