@@ -41,7 +41,7 @@ public class Turn {
                                     for (Weapon lW : bot1.leftHandWeapon) {
                                         System.out.println(i++ +"." + " " + lW.name + "Осталось боеприпасов " + lW.ammunition);
                                     }
-                                    System.out.println("3. Назад");
+                                    System.out.println("5. Назад");
                                   //  i = 1;
                                     while (true) {
                                         String input6 = reader.readLine();
@@ -57,7 +57,19 @@ public class Turn {
                                                     bot1.distAttack(bot2, bot1.leftHandWeapon.get(1));
                                                     break;
                                                 } else break;
-                                            case("3"):
+                                            case ("3"):
+                                                if (bot1.leftHandWeapon.size() > 2) {
+                                                    System.out.println(bot1.leftHandWeapon.get(2).name);
+                                                    bot1.distAttack(bot2, bot1.leftHandWeapon.get(2));
+                                                    break;
+                                                } else break;
+                                            case ("4"):
+                                                if (bot1.leftHandWeapon.size() > 3) {
+                                                    System.out.println(bot1.leftHandWeapon.get(3).name);
+                                                    bot1.distAttack(bot2, bot1.leftHandWeapon.get(3));
+                                                    break;
+                                                } else break;
+                                            case("5"):
                                                 break;
                                         }
                                         break;
@@ -71,7 +83,7 @@ public class Turn {
                                     for (Weapon rW : bot1.rightHandWeapon) {
                                         System.out.println(i++ + " " + rW.name + "Осталось боеприпасов " + rW.ammunition);
                                     }
-                                    System.out.println("3. Назад");
+                                    System.out.println("5. Назад");
 
                                     while (true) {
                                         String input7 = reader.readLine();
@@ -87,7 +99,19 @@ public class Turn {
                                                     bot1.distAttack(bot2, bot1.rightHandWeapon.get(1));
                                                     break;
                                                 } else break;
-                                            case("3"):
+                                            case ("3"):
+                                                if (bot1.rightHandWeapon.size() > 2) {
+                                                    System.out.println(bot1.rightHandWeapon.get(2).name);
+                                                    bot1.distAttack(bot2, bot1.rightHandWeapon.get(2));
+                                                    break;
+                                                } else break;
+                                            case ("4"):
+                                                if (bot1.rightHandWeapon.size() > 3) {
+                                                    System.out.println(bot1.rightHandWeapon.get(3).name);
+                                                    bot1.distAttack(bot2, bot1.rightHandWeapon.get(3));
+                                                    break;
+                                                } else break;
+                                            case("5"):
                                                 break;
                                         }
                                         break;
@@ -102,13 +126,12 @@ public class Turn {
                                         System.out.println("Выберите оружее");
                                         System.out.println(i++ + " " + rocket.name + "Осталось боеприпасов " + rocket.ammunition);
                                     }
-                                    //i = 1;
+                                    System.out.println("5. Назад");
                                     while (true) {
                                         String input8 = reader.readLine();
 
                                         switch (input8) {
                                             case ("1"):
-
                                                 System.out.println(bot1.allRockets.get(0).name);
                                                 bot1.distAttack(bot2, bot1.allRockets.get(0));
                                                  break;
@@ -118,6 +141,20 @@ public class Turn {
                                                     bot1.distAttack(bot2, bot1.allRockets.get(1));
                                                     break;
                                                 } else break;
+                                            case ("3"):
+                                                if (bot1.allRockets.size() > 2) {
+                                                    System.out.println(bot1.allRockets.get(2).name);
+                                                    bot1.distAttack(bot2, bot1.allRockets.get(2));
+                                                    break;
+                                                } else break;
+                                            case ("4"):
+                                                if (bot1.allRockets.size() > 3) {
+                                                    System.out.println(bot1.allRockets.get(3).name);
+                                                    bot1.distAttack(bot2, bot1.allRockets.get(3));
+                                                    break;
+                                                } else break;
+                                            case("5"):
+                                                break;
                                         }
                                         break;
                                     }

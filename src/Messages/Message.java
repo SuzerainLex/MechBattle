@@ -33,11 +33,6 @@ public class Message {
 
     public static void preFightMessage(Robot bot1, Robot bot2) {
         boolean flag = false;
-       /* for (Weapon w : bot1.weapons) {
-            if ((bot2.coordinatX <= bot1.coordinatX + w.range & bot2.coordinatX >= bot1.coordinatX - w.range) && (bot2.coordinatY <= bot1.coordinatY + w.range & bot2.coordinatY >= bot1.coordinatY - w.range) && (bot1.leftHandWeapon.contains(w) || bot1.rightHandWeapon.contains(w) || bot1.allRockets.contains(w))&& w.ammunition > 0) {
-                System.out.print("  " + w.name + " достает до противника  ");
-                flag = true;
-            }*/
         preMoveMessage(bot1, bot2);
         System.out.println();
         System.out.println("1. Левая рука" + fromList(bot1.leftHandWeapon));

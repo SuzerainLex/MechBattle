@@ -14,7 +14,7 @@ public final class Sounds extends Thread {
     public final static String TRACK = "musicList\\Mix.mp3";
     public final static String ROCKETSOUND = "sounds\\rocket.mp3";
     public final static String SMALLLASERSOUND = "sounds\\smalllaser.mp3";
-    public final static String MEDIUMLASERSOUND = "sounds\\smalllaser.mp3";
+    public final static String MEDIUMLASERSOUND = "sounds\\MiddleLaser.mp3";
     public final static String BIGLASERSOUND = "sounds\\BigLaser.mp3";
     public final static String MINIGUNSOUND = "sounds\\MiniGun.mp3";
     public final static String MEDIUMGUNSOUND = "sounds\\MiddleGun.mp3";
