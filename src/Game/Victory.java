@@ -10,14 +10,14 @@ public class Victory {
         while (!Victory.victory) {
 
 
-            if (bot1.getNumberOfMoves() > 0 && bot1.firstTurn) {
-                bot2.firstTurn = true;
+            if (bot1.getNumberOfMoves() > 0 && bot1.getFirstTurn()) {
+                bot2.setFirstTurn(true);
                 bot1.playerTurn(bot2);
 
             }
 
-            if (bot2.getNumberOfMoves() > 0 && bot2.firstTurn) {
-                bot1.firstTurn = true;
+            if (bot2.getNumberOfMoves() > 0 && bot2.getFirstTurn()) {
+                bot1.setFirstTurn(true);
                 bot2.playerTurn(bot1);
 
             }

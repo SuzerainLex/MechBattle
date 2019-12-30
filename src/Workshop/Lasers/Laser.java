@@ -57,7 +57,7 @@ public abstract class Laser extends Weapon {
                 }
             }
         }
-        bot.lasers = 0;
+        bot.setLasers(0);
         System.out.println("Все лазеры деинсталированы");
     }
 
@@ -71,7 +71,7 @@ public abstract class Laser extends Weapon {
             String inputHand = reader.readLine();
             switch (inputHand) {
                 case ("1"):
-                    if (bot.maxRightHandSlots != bot.rightHandWeapon.size()) {
+                    if (bot.getMaxRightHandSlots() != bot.rightHandWeapon.size()) {
                         if (weapon.equals("smalllaser")) {
                             SmallLaser sLR = new SmallLaser(false, true);
 
@@ -89,7 +89,7 @@ public abstract class Laser extends Weapon {
                     break;
 
                 case ("2"):
-                    if (bot.maxLeftHandSlots != bot.leftHandWeapon.size()) {
+                    if (bot.getMaxLeftHandSlots() != bot.leftHandWeapon.size()) {
                         if (weapon.equals("smalllaser")) {
                             SmallLaser sLL = new SmallLaser(true, false);
                             sLL.laserInstance(bot);
@@ -116,12 +116,12 @@ public abstract class Laser extends Weapon {
     }
 
     public void laserInstance(Robot bot) {
-        if (bot.getMaxWeigth() > bot.getWeaponWeight() && bot.lasers < bot.laserSockets) {
+        if (bot.getMaxWeigth() > bot.getWeaponWeight() && bot.getLasers() < bot.getLaserSockets()) {
             System.out.println("Установлен " + this.name);
-            bot.lasers++;
+            bot.setLasers(bot.getLasers()+1);
             bot.setWeaponWeight(bot.getWeaponWeight() + this.weight);
             System.out.println("Вес вооружения " + bot.getWeaponWeight());
-            System.out.println("Установлено лазеров " + bot.lasers);
+            System.out.println("Установлено лазеров " + bot.getLasers());
             if (this.leftHand)
                 bot.leftHandWeapon.add(this);
             else

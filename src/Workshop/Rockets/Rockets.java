@@ -27,17 +27,17 @@ public abstract class Rockets extends Weapon {
             }
         }
         bot.allRockets.clear();
-        bot.rockets = 0;
+        bot.setRockets(0);
         System.out.println("Все ракеты деинсталированы");
     }
     public void instanceRockets(Robot bot) {
-        if (bot.getMaxWeigth() > bot.getWeaponWeight() && bot.rockets < bot.rocketSockets) {
+        if (bot.getMaxWeigth() > bot.getWeaponWeight() && bot.getRockets() < bot.getRocketSockets()) {
             System.out.println("Установлены  " + this.name);
             bot.weapons.add(this);
             bot.allRockets.add(this);
-            bot.rockets++;
+            bot.setRockets(bot.getRockets()+1);
             bot.setWeaponWeight(bot.getWeaponWeight() + this.weight);
-            System.out.println("Установлено ракет " + bot.rockets);
+            System.out.println("Установлено ракет " + bot.getRockets());
             //ПОСТ ПРОВЕРКА
             if (bot.getWeaponWeight() > bot.getMaxWeigth())
                 Message.getWarning(bot);

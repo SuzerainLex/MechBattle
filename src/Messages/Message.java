@@ -13,9 +13,9 @@ import java.util.List;
 
 public class Message {
     public static void turnMessage(Robot bot1, Robot bot2) throws InterruptedException {
-        System.out.println("Местоположение " + bot1.name + " " + bot1.coordinatX + ":" + bot1.coordinatY);
+        System.out.println("Местоположение " + bot1.name + " " + bot1.getCoordinatX() + ":" + bot1.getCoordinatY());
         Thread.sleep(200);
-        System.out.println("Местоположение противника " + bot2.coordinatX + ":" + bot2.coordinatY);
+        System.out.println("Местоположение противника " + bot2.getCoordinatX() + ":" + bot2.getCoordinatY());
         Thread.sleep(200);
         System.out.println("Состояние брони: " + "голова:" + bot1.getHeadArmor() + " корпус:" + bot1.getBodyArmor() + " левая рука:" + bot1.getLeftHandArmor() + " правая рука:" + bot1.getRightHandArmor() + " ноги:" + bot1.getLegsArmor());
         Thread.sleep(200);
@@ -32,7 +32,6 @@ public class Message {
     }
 
     public static void preFightMessage(Robot bot1, Robot bot2) {
-        boolean flag = false;
         preMoveMessage(bot1, bot2);
         System.out.println();
         System.out.println("1. Левая рука" + fromList(bot1.leftHandWeapon));
@@ -44,12 +43,12 @@ public class Message {
     public static void preMoveMessage(Robot bot1, Robot bot2) {
         boolean flag = false;
         for (Weapon w : bot1.weapons) {
-            if ((bot2.coordinatX <= bot1.coordinatX + w.range & bot2.coordinatX >= bot1.coordinatX - w.range) && (bot2.coordinatY <= bot1.coordinatY + w.range & bot2.coordinatY >= bot1.coordinatY - w.range) && (bot1.leftHandWeapon.contains(w) || bot1.rightHandWeapon.contains(w) || bot1.allRockets.contains(w)) && w.ammunition > 0) {
+            if ((bot2.getCoordinatX() <= bot1.getCoordinatX() + w.range & bot2.getCoordinatX() >= bot1.getCoordinatX() - w.range) && (bot2.getCoordinatY() <= bot1.getCoordinatY() + w.range & bot2.getCoordinatY() >= bot1.getCoordinatY() - w.range) && (bot1.leftHandWeapon.contains(w) || bot1.rightHandWeapon.contains(w) || bot1.allRockets.contains(w)) && w.ammunition > 0) {
                 System.out.print("  " + w.name + " достает до противника  ");
                 flag = true;
             }
         }
-        if (flag == false)
+        if (!flag)
             System.out.println("Противник слишком далеко");
     }
 
@@ -98,15 +97,15 @@ public class Message {
             System.out.println("Превышен допустимый для вооружения вес");
             System.out.println("Вы не можете выйти на бой с перевесом");
             System.out.println("Установите другой набор вооружения");
-        } else if (bot.guns >= bot.gunSockets || bot.lasers >= bot.laserSockets || bot.rockets >= bot.rocketSockets) {
+        } else if (bot.getGuns() >= bot.getGunSockets() || bot.getLasers() >= bot.getLaserSockets() || bot.getRockets() >= bot.getRocketSockets()) {
             System.out.println("Превышен лимит установки данного типа оружия");
         }
     }
 
     public static void goMessage(Robot bot1, Robot bot2) {
         System.out.println("W ВПЕРЕД   S НАЗАД    A ВЛЕВО     D ВПРАВО    1. НАЗАД");
-        System.out.println("Местонахождение " + bot1.coordinatX + ":" + bot1.coordinatY);
-        System.out.println("Местоположение противника " + bot2.coordinatX + ":" + bot2.coordinatY);
+        System.out.println("Местонахождение " + bot1.getCoordinatX() + ":" + bot1.getCoordinatY());
+        System.out.println("Местоположение противника " + bot2.getCoordinatX() + ":" + bot2.getCoordinatY());
         System.out.println("Очки хода " + bot1.getNumberOfMoves());
     }
 
@@ -141,6 +140,6 @@ public class Message {
 
     public static void mechChar(Robot bot) {
         System.out.format("Очки хода: %d  Радиатор: %d  Инициатива: %d  Урон в ближнем бою: %d  Максимальный вес %d%n Броня головы: %d  Броня тела: %d  Броня левой руки: %d  Броня правой руки: %d  Броня ног: %d  Сокеты лазеров: %d  Сокеты пушек: %d  Сокеты ракет: %d  Максимум оружия на левой руке: %d  Максимум оружия на правой руке %d%n ",
-                bot.getNumberOfMoves(), bot.getRadiator(), bot.getInitiative(), bot.meleemight, bot.getMaxWeigth(), bot.getHeadArmor(), bot.getBodyArmor(), bot.getLeftHandArmor(), bot.getRightHandArmor(), bot.getLegsArmor(), bot.laserSockets, bot.gunSockets, bot.rocketSockets, bot.maxLeftHandSlots, bot.maxLeftHandSlots);
+                bot.getNumberOfMoves(), bot.getRadiator(), bot.getInitiative(), bot.getMeleemight(), bot.getMaxWeigth(), bot.getHeadArmor(), bot.getBodyArmor(), bot.getLeftHandArmor(), bot.getRightHandArmor(), bot.getLegsArmor(), bot.getLaserSockets(), bot.getGunSockets(), bot.getRocketSockets(), bot.getMaxLeftHandSlots(), bot.getMaxRightHandSlots());
     }
 }

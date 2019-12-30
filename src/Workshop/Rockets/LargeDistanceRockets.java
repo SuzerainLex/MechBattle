@@ -1,8 +1,5 @@
 package Workshop.Rockets;
 
-import Messages.Message;
-import Robots.Robot;
-
 public class LargeDistanceRockets extends Rockets {
 
     public LargeDistanceRockets() {

@@ -50,12 +50,11 @@ public abstract class Gun extends Weapon {
                 }
             }
         }
-        bot.guns = 0;
+        bot.setGuns(0);
         System.out.println("Все пушки деинсталированы");
     }
 
     public static void handChoose(Robot bot, String weapon) throws IOException {
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("1. Правая рука");
         System.out.println("2. Левая рука");
@@ -65,7 +64,7 @@ public abstract class Gun extends Weapon {
             String inputHand = reader.readLine();
             switch (inputHand) {
                 case ("1"):
-                    if (bot.maxLeftHandSlots != bot.rightHandWeapon.size()) {
+                    if (bot.getMaxRightHandSlots() != bot.rightHandWeapon.size()) {
                         if (weapon.equals("miniGun")) {
                             MiniGun miniGR = new MiniGun(false, true);
                             miniGR.instanceGun(bot);
@@ -82,7 +81,7 @@ public abstract class Gun extends Weapon {
                     break;
 
                 case ("2"):
-                    if (bot.maxLeftHandSlots != bot.leftHandWeapon.size()) {
+                    if (bot.getMaxLeftHandSlots() != bot.leftHandWeapon.size()) {
                         if (weapon.equals("miniGun")) {
                             MiniGun miniGL = new MiniGun(true, false);
                             miniGL.instanceGun(bot);
@@ -109,11 +108,11 @@ public abstract class Gun extends Weapon {
         }
     }
     public void instanceGun(Robot bot) {
-        if (bot.getMaxWeigth() > bot.getWeaponWeight() && bot.guns < bot.gunSockets) {
+        if (bot.getMaxWeigth() > bot.getWeaponWeight() && bot.getGuns() < bot.getGunSockets()) {
             System.out.println("Установлена " + this.name);
-            bot.guns++;
+            bot.setGuns(bot.getGuns()+1);
             bot.setWeaponWeight(bot.getWeaponWeight()+ this.weight);
-            System.out.println("Установлено пушек " + bot.guns);
+            System.out.println("Установлено пушек " + bot.getGuns());
             if (this.leftHand)
                 bot.leftHandWeapon.add(this);
             else

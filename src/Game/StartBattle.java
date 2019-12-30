@@ -25,29 +25,19 @@ import java.io.*;
  но также и половину этого урона приходится на вашу броню (bodyarmor);
 */
 public class StartBattle {
-    static {
-        try {
-            StartMessage.rulesMessage();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        pS1 = new PlaySounds(Sounds.TRACK);
-    }
 
     public static PlaySounds pS1;
+
     public static void main(String[] args) throws IOException, InterruptedException {
+        pS1 = new PlaySounds(Sounds.TRACK);
+        StartMessage message = new StartMessage();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Robot bot1;
         Robot bot2;
 
         one:
-        for (; ;) {
-            System.out.println("Первый игрок выберите меха");
-            System.out.println("1.THOR");
-            System.out.println("2.MAD CAT");
-            System.out.println("3.LOCUST");
-            System.out.println("4.ATLAS");
-
+        for (; ; ) {
+            message.choiceMessage("Первый");
             String input1 = reader.readLine();
             switch (input1) {
 
@@ -81,13 +71,8 @@ public class StartBattle {
             }
         }
         two:
-        for (; ;) {
-            System.out.println("Второй игрок выберите меха");
-            System.out.println("1.THOR");
-            System.out.println("2.MAD CAT");
-            System.out.println("3.LOCUST");
-            System.out.println("4.ATLAS");
-
+        for (; ; ) {
+            message.choiceMessage("Второй");
             String input2 = reader.readLine();
             switch (input2) {
                 case ("1"):

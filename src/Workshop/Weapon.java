@@ -23,7 +23,7 @@ public abstract class Weapon
         bot.weapons.clear();
         bot.rightHandWeapon.clear();
         bot.leftHandWeapon.clear();
-        bot.guns = 0; bot.rockets = 0; bot.lasers = 0;
+        bot.setGuns(0); bot.setRockets(0); bot.setLasers(0);
         bot.setWeaponWeight(0);
         System.out.println("Все оружие деисталлировано");
   }

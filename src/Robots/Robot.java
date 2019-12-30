@@ -21,10 +21,10 @@ public abstract class Robot implements iFight, iMove {
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private final int maxWeigth, radiator, initiative;
     private int heatLev = 0, headArmor, bodyArmor, legsArmor, leftHandArmor, rightHandArmor, weaponWeight, numberOfMoves, maxNumberOfMoves;
-    public int coordinatX, coordinatY, guns = 0, rockets = 0, lasers = 0, rocketSockets, laserSockets, gunSockets, meleemight, maxLeftHandSlots, maxRightHandSlots;
+    private int coordinatX, coordinatY, guns = 0, rockets = 0, lasers = 0, rocketSockets, laserSockets, gunSockets, meleemight, maxLeftHandSlots, maxRightHandSlots;
     public final String name;
-    public String playerName;
-    public boolean firstTurn = false;
+    String playerName;
+    private boolean firstTurn = false;
     public List<Weapon> weapons = new ArrayList<>();
     public List<Weapon> leftHandWeapon = new ArrayList<>();
     public List<Weapon> rightHandWeapon = new ArrayList<>();
@@ -57,7 +57,31 @@ public abstract class Robot implements iFight, iMove {
         else return heatLev;
     }
 
-    public void setHeatLev(int heatLev) {
+    public int getCoordinatX() {
+        return coordinatX;
+    }
+
+    public void setCoordinatX(int coordinatX) {
+        this.coordinatX = coordinatX;
+    }
+
+    public int getCoordinatY() {
+        return coordinatY;
+    }
+
+    public void setCoordinatY(int coordinatY) {
+        this.coordinatY = coordinatY;
+    }
+
+    public boolean getFirstTurn() {
+        return firstTurn;
+    }
+
+    public void setFirstTurn(boolean firstTurn) {
+        this.firstTurn = firstTurn;
+    }
+
+    private void setHeatLev(int heatLev) {
         this.heatLev = heatLev;
     }
 
@@ -65,7 +89,7 @@ public abstract class Robot implements iFight, iMove {
         return initiative;
     }
 
-    public int getMaxNumberOfMoves() {
+    private int getMaxNumberOfMoves() {
         return maxNumberOfMoves;
     }
 
@@ -93,8 +117,57 @@ public abstract class Robot implements iFight, iMove {
         this.numberOfMoves = numberOfMoves;
     }
 
-    public String getPlayerName() {
+    private String getPlayerName() {
         return playerName;
+    }
+
+    public int getMeleemight() {
+        return meleemight;
+    }
+
+    public int getGuns() {
+        return guns;
+    }
+
+    public void setGuns(int guns) {
+        this.guns = guns;
+    }
+
+    public int getRockets() {
+        return rockets;
+    }
+
+    public void setRockets(int rockets) {
+        this.rockets = rockets;
+    }
+
+    public int getLasers() {
+        return lasers;
+    }
+
+    public void setLasers(int lasers) {
+        this.lasers = lasers;
+    }
+
+    public int getRocketSockets() {
+        return rocketSockets;
+    }
+
+    public int getLaserSockets() {
+        return laserSockets;
+    }
+
+
+    public int getGunSockets() {
+        return gunSockets;
+    }
+
+    public int getMaxLeftHandSlots() {
+        return maxLeftHandSlots;
+    }
+
+    public int getMaxRightHandSlots() {
+        return maxRightHandSlots;
     }
 
     //ГОЛОВА
@@ -104,19 +177,11 @@ public abstract class Robot implements iFight, iMove {
         else return headArmor;
     }
 
-    public void setHeadArmor(int headArmor) {
-        this.headArmor = headArmor;
-    }
-
     //ТЕЛО
     public int getBodyArmor() {
         if (bodyArmor <= 0)
             return 0;
         else return bodyArmor;
-    }
-
-    public void setBodyArmor(int bodyArmor) {
-        this.bodyArmor = bodyArmor;
     }
 
     //ЛЕВАЯ РУКА
@@ -126,19 +191,11 @@ public abstract class Robot implements iFight, iMove {
         else return leftHandArmor;
     }
 
-    public void setLeftHandArmor(int leftHandArmor) {
-        this.leftHandArmor = leftHandArmor;
-    }
-
     //ПРАВАЯ РУКА
     public int getRightHandArmor() {
         if (rightHandArmor <= 0)
             return 0;
         else return rightHandArmor;
-    }
-
-    public void setRightHandArmor(int rightHandArmor) {
-        this.rightHandArmor = rightHandArmor;
     }
 
     //НОГИ
@@ -147,11 +204,6 @@ public abstract class Robot implements iFight, iMove {
             return 0;
         else return legsArmor;
     }
-
-    public void setLegsArmor(int legsArmor) {
-        this.legsArmor = legsArmor;
-    }
-
 
     public void distAttack(Robot bot, Weapon weapon) throws IOException, InterruptedException {
         if (weapon.ammunition != 0) {
