@@ -11,20 +11,14 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebSocketConfig implements WebSocketConfigurer {
 
     private final GameWebSocketHandler gameWebSocketHandler;
-    private final AppProperties appProperties;
 
-    public WebSocketConfig(GameWebSocketHandler gameWebSocketHandler, AppProperties appProperties) {
+    public WebSocketConfig(GameWebSocketHandler gameWebSocketHandler) {
         this.gameWebSocketHandler = gameWebSocketHandler;
-        this.appProperties = appProperties;
     }
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        var registration = registry.addHandler(gameWebSocketHandler, "/ws");
-        if (appProperties.usesOriginPatterns()) {
-            registration.setAllowedOriginPatterns(appProperties.corsPatternsArray());
-        } else {
-            registration.setAllowedOrigins(appProperties.corsOriginsArray());
-        }
+        // Публичный игровой сервер: браузеры с любого фронта (Vercel preview и prod).
+        registry.addHandler(gameWebSocketHandler, "/ws").setAllowedOriginPatterns("*");
     }
 }
