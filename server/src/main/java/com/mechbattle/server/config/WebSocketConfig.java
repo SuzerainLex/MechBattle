@@ -20,7 +20,11 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(gameWebSocketHandler, "/ws")
-                .setAllowedOrigins(appProperties.corsOriginsArray());
+        var registration = registry.addHandler(gameWebSocketHandler, "/ws");
+        if (appProperties.usesOriginPatterns()) {
+            registration.setAllowedOriginPatterns(appProperties.corsPatternsArray());
+        } else {
+            registration.setAllowedOrigins(appProperties.corsOriginsArray());
+        }
     }
 }

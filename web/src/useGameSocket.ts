@@ -159,7 +159,10 @@ export function useGameSocket(onAction?: ActionHandler) {
 
       ws.onerror = () => {
         if (!mounted || intentionalClose.current) return;
-        setError('Ошибка WebSocket — проверьте, что сервер запущен на порту 8080');
+        const hint = import.meta.env.VITE_WS_URL
+          ? `Не удалось подключиться к ${WS_URL}`
+          : `Не задан VITE_WS_URL (сейчас ${WS_URL}). Добавьте переменную в Vercel и сделайте Redeploy.`;
+        setError(hint);
       };
 
       ws.onmessage = (event) => {

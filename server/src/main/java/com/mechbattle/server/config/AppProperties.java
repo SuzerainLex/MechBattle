@@ -16,6 +16,29 @@ public class AppProperties {
     }
 
     public String[] corsOriginsArray() {
-        return corsOrigins.split(",");
+        return java.util.Arrays.stream(corsOrigins.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toArray(String[]::new);
+    }
+
+    public boolean allowAllOrigins() {
+        return "*".equals(corsOrigins.trim());
+    }
+
+    public boolean usesOriginPatterns() {
+        if (allowAllOrigins()) {
+            return true;
+        }
+        for (String origin : corsOriginsArray()) {
+            if (origin.contains("*")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String[] corsPatternsArray() {
+        return allowAllOrigins() ? new String[] { "*" } : corsOriginsArray();
     }
 }
