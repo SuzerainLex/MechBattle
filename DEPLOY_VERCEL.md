@@ -10,10 +10,9 @@
 ### 1. Сервер на Railway (если ещё нет)
 
 1. [railway.app](https://railway.app) → Deploy **SuzerainLex/MechBattle**
-2. **Root Directory:** `server`
-3. **Generate Domain** → URL вида `https://xxx.up.railway.app`
-4. Variable: `APP_CORS_ORIGINS=*` (потом замените на URL Vercel)
-5. Проверка: `https://xxx.up.railway.app/health`
+2. **Root Directory:** `/` (корень репо) — или `server` для альтернативного Dockerfile
+3. **Settings → Build:** Builder = **Dockerfile** (не Nixpacks/Railpack)
+4. **Generate Domain** → URL вида `https://xxx.up.railway.app`
 
 ### 2. Клиент на Vercel
 

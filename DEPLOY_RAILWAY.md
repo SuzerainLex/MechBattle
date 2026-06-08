@@ -4,8 +4,9 @@
 
 1. Откройте [railway.app](https://railway.app) → **New Project** → **Deploy from GitHub repo**
 2. Выберите репозиторий `SuzerainLex/MechBattle`
-3. **Settings → Root Directory:** `server`
-4. Railway подхватит `server/Dockerfile` и `server/railway.toml`
+3. **Root Directory:** оставьте **`/`** (корень) — там есть `Dockerfile` и `railway.toml`  
+   *Альтернатива:* Root Directory = `server` (тогда используется `server/Dockerfile`)
+4. Railway подхватит Docker-сборку (не Railpack/Nixpacks)
 5. **Variables** (пока без Vercel — можно `*` для теста, потом замените):
 
    | Переменная | Значение |
