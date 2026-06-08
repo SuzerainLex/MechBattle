@@ -1,0 +1,23 @@
+# Java
+server/target/
+*.class
+*.jar
+!MechBattle.jar
+
+# Node
+web/node_modules/
+web/dist/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Env
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
